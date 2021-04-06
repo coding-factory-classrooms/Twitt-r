@@ -19,3 +19,22 @@ figlet('Twittèr Corp', (err, data) => {
     if (err) console.log(err);
     else console.log(data);
 })
+
+// Create new account
+app.post('/db/createAccount', (req, res) => {
+    const userData = JSON.parse(req.body)
+
+    const createAccount = new Account({
+        username: userData.username,
+        email: userData.email,
+        password: userData.password,
+        privateMessages: [],
+        twert: [], 
+        favTwert: [],
+        retweetTwert: [],
+        commentTwert: [],
+    })
+    createAccount.save()
+        .then(() => { res.sendStatus(200) })
+        .catch((error) => { res.send(error) })
+}) 
