@@ -3,9 +3,17 @@ const discussionInput = document.querySelector('.discussionInputContainer input'
 const sendMsgBtn = document.querySelector('.discussionInputContainer button')
 let interval
 
-async function displayMessages(interlocutorId, interlocutor) {
+// If user hit the enter key when writing a message, send the message
+discussionInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') sendMsg(discussionInput.getAttribute('interlocutor-id'))
+})
+
+
+async function displayMessages(interlocutorId, interlocutor, discussionId) {
     // Hide the empty discussion message
     document.querySelector('.emptyDiscussion').style.display = 'none'
+    // Set the selected style to the private discussion
+    setActivePrivateDiscussion(discussionId)
 
     // Check if the discussion isn't already displayed
     if (interlocutorId != discussionDisplayed) {
@@ -14,6 +22,7 @@ async function displayMessages(interlocutorId, interlocutor) {
 
         // Set the good data for input and button
         discussionInput.placeholder = `Écrire à ${interlocutor}`
+        discussionInput.setAttribute('interlocutor-id', interlocutorId)
         sendMsgBtn.setAttribute('onclick', `sendMsg('${interlocutorId}')`)
 
         // Display all messages of the discussion
@@ -97,6 +106,14 @@ async function getAllMessagesOfDiscussion(userId, interlocutorId) {
         toReturn = discussion.messages
     })
     return toReturn
+}
+function setActivePrivateDiscussion(discussionId) {
+    // Delete the last active class
+    const activePrivateDiscussion = document.querySelector('.privateMsgList .active')
+    if (activePrivateDiscussion) activePrivateDiscussion.classList.remove('active')
+    // Add the active class to the new active discussion
+    document.getElementById(discussionId).classList.add('active')
+
 }
 
 // fetch('/db/createAccount', { method: 'POST', body: JSON.stringify({
