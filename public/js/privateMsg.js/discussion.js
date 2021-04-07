@@ -48,6 +48,9 @@ async function displayMessages(interlocutorId, interlocutor, discussionId) {
             discussion.messages.forEach(msg => {
                 displayMsg(msg)
             })
+
+            // Scroll to the bottom of the discussion container
+            discussionContainer.scrollTop = discussionContainer.scrollHeight
         })
         // Each 2 seconds, check if there is a new message
         interval = setInterval(async () => {
@@ -67,10 +70,12 @@ async function displayMessages(interlocutorId, interlocutor, discussionId) {
 }
 function displayMsg(msg) {
     discussionContainer.insertAdjacentHTML('beforeend', `
-    <div class="msgContainer ${msg.author}">
-        <p>${msg.body}</p>
-    </div>
-`)
+        <div class="msgContainer ${msg.author}">
+            <p>${msg.body}</p>
+        </div>
+    `)
+    // Scroll to the bottom of the discussion container
+    discussionContainer.scrollTop = discussionContainer.scrollHeight
 }
 async function sendMsg(interlocutorId) {
     // Get message body
