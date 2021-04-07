@@ -73,10 +73,12 @@ main {
     font-size: 13px;
     color: rgb(136, 153, 166);
     font-weight: 400;
+    margin-right: 20px;
 }
 .backgroundImage {
     overflow: hidden;
-    background-image: url("https://images.pexels.com/photos/1563356/pexels-photo-1563356.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
+    background-image: url();
+    background-color: #3D5466;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center; 
@@ -137,9 +139,6 @@ main {
     font-size: 15px;
     color: white;
 }
-.followCounted {
-    margin-right: 20px;
-}
 .twertsAndLikeTwerts{
     height: 52px;
     display: flex;
@@ -153,6 +152,7 @@ main {
     height: 100%;
     color: rgb(136, 153, 166);
     font-weight: bold;
+    border-radius: 0;
 }
 .twertsOfProfilBtn:hover {
     color: rgb(29, 161, 242);
@@ -163,6 +163,7 @@ main {
     height: 100%;
     color: rgb(136, 153, 166);
     font-weight: bold;
+    border-radius: 0;
 }
 .twertsLikeOfProfilBtn:hover{
     color: rgb(29, 161, 242);

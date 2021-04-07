@@ -68,23 +68,29 @@ app.post('/db/getAccount',(req, res) => {
 })
 // Get all messages
 app.get('/db/getMessages', (req, res) => {
-    Message.find().then((data) => {
+    Twert.find().then((data) => {
         res.send(data)
     })
 })
-
+// Get name of the author of a twert
 app.post('/db/getAuthorName', (req, res)=>{
     let authorData = req.body
-    console.log(authorData);
     Account.findById(req.body).then((user)=>{
         res.send(user.username)
     })
 })
-
+// Send twert to bdd
 app.post('/db/sendMsg', (req, res)=>{
     let msg = JSON.parse(req.body)
-    console.log(msg);
-    newTwert = new Twert(msg)
+    const twert = {
+        authorId: msg.authorId,
+        authorName: msg.authorName,
+        body: msg.body,
+        favCounter: 0,
+        retweetCounter: 0,
+        comments: []
+    }
+    newTwert = new Twert(twert)
     newTwert.save()
 })
 // Create a new private discussion

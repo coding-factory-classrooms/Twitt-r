@@ -9,18 +9,18 @@ async function printData(){
     const urlParams = new URLSearchParams(url)
     const userId = urlParams.get('id')
 
-    
 
-    /* // If user has no message, display the empty message
+
+    // If user has no message, display the empty message
     if (msgCounter == 0) {
         document.querySelector('.profilMsgHistory .emptyMsgAlert').style.display = 'block'
-    } */
+    }
 }
 
 async function getAllMessages() {
-    let twerts
+    let messages
     await fetch('/db/getMessages')
         .then((response) => response.json())
-        .then((data) => twerts = data)
-    return twerts
+        .then((data) => messages = data)
+    return messages
 }
