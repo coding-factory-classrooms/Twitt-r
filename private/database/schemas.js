@@ -10,7 +10,19 @@ const accountSchema = new mongoose.Schema({
     followers: Array,
     follow: Array,
     description: String,
-    privateMessages: Array,
+    privateMessages:[
+        {
+            interlocutor: String,
+            interlocutorId: String,
+            messages: [
+                {
+                    author: String,
+                    body: String,
+                    date: Date
+                }
+            ]
+        }
+    ],
     twert: Array, 
     favTwert: Array,
     retweetTwert: Array,
