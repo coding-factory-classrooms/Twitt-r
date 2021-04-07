@@ -56,7 +56,6 @@ app.post('/db/newMessage', (req, res) => {
 
 app.post('/db/getAuthorName', (req, res)=>{
     let authorData = req.body
-    console.log(authorData);
     Account.findById(req.body).then((user)=>{
         res.send(user.username)
     })
@@ -64,7 +63,6 @@ app.post('/db/getAuthorName', (req, res)=>{
 
 app.post('/db/sendMsg', (req, res)=>{
     let msg = JSON.parse(req.body)
-    console.log(msg);
     newTwert = new Twert(msg)
     newTwert.save()
 })
@@ -83,10 +81,15 @@ app.post('/db/newPrivateDiscussion', async (req, res) => {
         username = user.username
         for (let i = 0; i < user.privateMessages.length; i++) {
             const privateMsg = user.privateMessages[i];
-            if (privateMsg.interlocutorId == data.interlocutorId) {
-                foundMatch = true
-                // If a private discussion already exists, don't create a new private discussion
+            
+            // If a private discussion already exists but there is no messages, delete de discussion
+            if (privateMsg.interlocutorId == data.interlocutorId && privateMsg.messages.length == 0) {
+                privateMsg.remove()
+                await user.save()
+                console.log('discussion delete');
             }
+            // If a private discussion already exists and there is some messages, don't create a new one
+            else if (privateMsg.interlocutorId == data.interlocutorId) foundMatch = true
         }
         if (!foundMatch) {
             // Create the new private discussion
@@ -103,7 +106,7 @@ app.post('/db/newPrivateDiscussion', async (req, res) => {
                 await user.save()
             })
             res.sendStatus(200)
-        } else console.log('A private discussion already exists with this user');
+        }
     })
 })
 // Get all private discussion of a user
@@ -142,7 +145,6 @@ app.post('/db/saveNewMsg', (req, res) => {
     const data = JSON.parse(req.body)
 
     const newMsg = {
-        author: 'user',
         body: data.msgBody,
         date: new Date()
     }
@@ -152,6 +154,7 @@ app.post('/db/saveNewMsg', (req, res) => {
         user.privateMessages.forEach(async privateMsg => {
 
             if (privateMsg.interlocutorId == data.interlocutorId) {
+                newMsg.author = 'user'
                 privateMsg.messages.push(newMsg)
                 await user.save()
             }

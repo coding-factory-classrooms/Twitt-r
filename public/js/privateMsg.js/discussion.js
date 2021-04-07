@@ -8,7 +8,6 @@ discussionInput.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') sendMsg(discussionInput.getAttribute('interlocutor-id'))
 })
 
-
 async function displayMessages(interlocutorId, interlocutor, discussionId) {
     // Hide the empty discussion message
     document.querySelector('.emptyDiscussion').style.display = 'none'
@@ -20,7 +19,7 @@ async function displayMessages(interlocutorId, interlocutor, discussionId) {
         discussionDisplayed = interlocutorId
         clearInterval(interval)
 
-        // Set the good data for input and button
+        // Set the good interlocutor ID for input and button
         discussionInput.placeholder = `Écrire à ${interlocutor}`
         discussionInput.setAttribute('interlocutor-id', interlocutorId)
         sendMsgBtn.setAttribute('onclick', `sendMsg('${interlocutorId}')`)
@@ -54,9 +53,6 @@ async function displayMessages(interlocutorId, interlocutor, discussionId) {
         interval = setInterval(async () => {
             let AllMessages = await getAllMessagesOfDiscussion(userId, interlocutorId);
             let messagesList = document.querySelectorAll('.discussionContainer .discussion .msgContainer')
-
-            // console.log('local  : '+messagesList.length);
-            // console.log('in BDD : '+AllMessages.length);
 
             if (messagesList.length != AllMessages.length) {
                 let diffMsg = AllMessages.length - messagesList.length
@@ -92,6 +88,8 @@ async function sendMsg(interlocutorId) {
             userId: userId
         }
         await fetch('/db/saveNewMsg', { method: 'POST', body: JSON.stringify(data) })
+        // Update the date of the discussion
+        document.querySelector('.privateMsgListContainer .active .privateMsgDate').innerHTML = 'à l\'instant'
     }
 }
 async function getAllMessagesOfDiscussion(userId, interlocutorId) {
