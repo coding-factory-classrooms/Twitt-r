@@ -1,0 +1,34 @@
+body {
+    font-family: 'poppins', sans-serif;
+    background-color: rgb(21,32,43);
+    color: white;
+}
+.col-sm-4 {
+}
+.col-sm-5{
+    border: 1px solid rgb(58, 68, 77);
+    border-top:0px ;
+    padding-right: 0px;
+    padding-left: 0px;
+}
+.col-sm-3{
+}
+.row{
+    height: 1000px;
+}
+#accueil{
+    width: 100%;
+    height: 4.5%;
+    border-bottom: 1px solid rgb(58, 68, 77);
+}
+#accueil p {
+    margin-top: 2%;
+    margin-left: 2%;
+    font-size: 20px;
+    font-weight: 800;
+}
+#filActu{
+}
+#msgArea{
+    background-color: rgb(21,32,43);
+}
