@@ -20,6 +20,10 @@ async function setUserData() {
         twertsContainerElement.removeChild(twertsElements[i]);
     }
 
+    // Set profile picture 
+    const profilePictureContainer = document.querySelector('.profilImage img')
+    profilePictureContainer.src = user.profilImg
+
     // Set the username on each span who contains the class "username"
     const usernameSpanList = document.querySelectorAll('.username')
     for (let i = 0; i < usernameSpanList.length; i++) {
@@ -63,29 +67,36 @@ async function setUserData() {
 
         twertsContainerElement.insertAdjacentHTML('afterbegin', `
             <div class="twertCard">
-                <div class="twertInfo">
-                    <p class="username">${user.username}</p>
-                    <p class="diffTime">${diffDate} </p>
+                <div class="ppTwertContainer">
+                    <div class="ppTwert">
+                        <img src="${user.profilImg}" alt="profilImage">
+                    </div>
                 </div>
-                <div class="twertContent">
-                    <p class="body">${twert.body}</p>
-                </div>
-                <div class="interactContainer">
-                    <div class="comentContainer">
-                        <span class="comentIcon"></span>
-                        <p>${twert.comments.length}</p>
+                <div class="twertInfoContainer">
+                    <div class="twertInfo">
+                        <p class="username">${user.username}</p>
+                        <p class="diffTime">${diffDate} </p>
                     </div>
-                    <div class="rtContainer">
-                        <span class="rtIcon"></span>
-                        <p>${twert.retweetCounter}</p>
+                    <div class="twertContent">
+                        <p class="body">${twert.body}</p>
                     </div>
-                    <div class="favContainer">
-                        <span class="favIcon"></span>
-                        <p>${twert.favCounter}</p>
-                    </div>
-                    <div class="shareContainer">
-                        <span class="shareIcon></span>
-                        <p></p>
+                    <div class="interactContainer">
+                        <div class="comentContainer">
+                            <span class="comentIcon"></span>
+                            <p>${twert.comments.length}</p>
+                        </div>
+                        <div class="rtContainer">
+                            <span class="rtIcon"></span>
+                            <p>${twert.retweetCounter}</p>
+                        </div>
+                        <div class="favContainer">
+                            <span class="favIcon"></span>
+                            <p>${twert.favCounter}</p>
+                        </div>
+                        <div class="shareContainer">
+                            <span class="shareIcon></span>
+                            <p></p>
+                        </div>
                     </div>
                 </div>
             </div>
