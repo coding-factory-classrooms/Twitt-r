@@ -13,7 +13,7 @@ p {
 /* DISCUSSION LIST */
 .privateMsgListContainer {
     width: 23%;
-    padding: 0 1%;
+    padding-right: 1%;
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -45,6 +45,7 @@ p {
     overflow: auto;
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 .privateMsgList .privateMsg {
     width: 92%;
@@ -55,6 +56,23 @@ p {
     border-radius: 5px;
     cursor: pointer;
     transition: background-color .1s;
+}
+.privateMsgList .privateMsg::after {
+    content: '';
+    display: block;
+    width: 4px;
+    height: 0px;
+    position: absolute;
+    border-radius: 0 5px 5px 0;
+    left: 0;
+    background-color: rgb(29, 161, 242);
+    transition: height .5s ease-out;
+}
+.privateMsgList .active::after {
+    height: 25px;
+}
+.privateMsgList .active .privateMsgUsername {
+    color: rgb(29, 161, 242);
 }
 .privateMsgList .privateMsg:hover {
     background-color: rgb(27, 36, 48);
