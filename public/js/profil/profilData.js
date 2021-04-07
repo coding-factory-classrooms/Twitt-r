@@ -39,9 +39,9 @@ async function setUserData() {
     const followersCount = user.followers
     const followCount = user.follow
     followAndFollowersElements[0].innerHTML = followersCount.length + ' '
-    followAndFollowersElements[1].innerHTML = ` abonné${totalTwertsCounter > 1 ? 's' : ''}`
+    followAndFollowersElements[1].innerHTML = ` abonné${followersCount.length > 1 ? 's' : ''}`
     followAndFollowersElements[2].innerHTML = followCount.length + ' '
-    followAndFollowersElements[3].innerHTML = ` abonnement${totalTwertsCounter > 1 ? 's' : ''}`
+    followAndFollowersElements[3].innerHTML = ` abonnement${followCount.length > 1 ? 's' : ''}`
 
     // Display all the twerts
     const allTwertsProfile = await getAllUserMessages(userId)
