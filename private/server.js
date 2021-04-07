@@ -38,3 +38,22 @@ app.post('/db/createAccount', (req, res) => {
         .then(() => { res.sendStatus(200) })
         .catch((error) => { res.send(error) })
 }) 
+// Get all accounts
+app.get('/db/getAccounts', (req, res) => {
+    Account.find().then((data) => {
+        res.send(data)
+    })
+})
+// Get account by ID
+app.post('/db/getAccount',(req, res) => {
+    const id = req.body
+    Account.findById(id)
+        .then((result) => { res.send(result)})
+        .catch((error) => { res.send(error)})
+})
+// Get all messages
+app.get('/db/getMessages', (req, res) => {
+    Message.find().then((data) => {
+        res.send(data)
+    })
+})
