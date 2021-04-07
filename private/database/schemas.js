@@ -5,6 +5,11 @@ const accountSchema = new mongoose.Schema({
     username: String,
     email: String,
     password: String,
+    profilImg: String,
+    backgroundProfilImg: String,
+    followers: Array,
+    follow: Array,
+    description: String,
     privateMessages:[
         {
             interlocutor: String,

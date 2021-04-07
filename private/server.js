@@ -52,18 +52,45 @@ app.post('/db/newMessage', (req, res) => {
     newMessage.save()
         .then((result) => { res.send(result) })
         .catch((error) => { res.send(error) })
+}) 
+// Get all accounts
+app.get('/db/getAccounts', (req, res) => {
+    Account.find().then((data) => {
+        res.send(data)
+    })
 })
-
+// Get account by ID
+app.post('/db/getAccount',(req, res) => {
+    const id = req.body
+    Account.findById(id)
+        .then((result) => { res.send(result)})
+        .catch((error) => { res.send(error)})
+})
+// Get all messages
+app.get('/db/getMessages', (req, res) => {
+    Twert.find().then((data) => {
+        res.send(data)
+    })
+})
+// Get name of the author of a twert
 app.post('/db/getAuthorName', (req, res)=>{
     let authorData = req.body
     Account.findById(req.body).then((user)=>{
         res.send(user.username)
     })
 })
-
+// Send twert to bdd
 app.post('/db/sendMsg', (req, res)=>{
     let msg = JSON.parse(req.body)
-    newTwert = new Twert(msg)
+    const twert = {
+        authorId: msg.authorId,
+        authorName: msg.authorName,
+        body: msg.body,
+        favCounter: 0,
+        retweetCounter: 0,
+        comments: []
+    }
+    newTwert = new Twert(twert)
     newTwert.save()
 })
 // Create a new private discussion
