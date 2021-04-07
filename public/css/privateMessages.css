@@ -13,7 +13,6 @@ p {
 /* DISCUSSION LIST */
 .privateMsgListContainer {
     width: 23%;
-    padding-right: 1%;
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -32,8 +31,8 @@ p {
 }
 .privateMsgListContainer .privateMsgListTitle {
     justify-content: space-between;
-    margin-left: 4%;
-    width: 96%;
+    margin: 0 2% 0 4%;
+    width: 94%;
 }
 .privateMsgListContainer .newDiscussionImg {
     width: 30px;
@@ -55,7 +54,7 @@ p {
     align-items: center;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color .1s;
+    transition: background-color .3s;
 }
 .privateMsgList .privateMsg::after {
     content: '';
@@ -107,7 +106,7 @@ p {
 /* DISCUSSION */
 .discussionContainer {
     height: 100vh;
-    width: 75%;
+    width: 62%;
 }
 .discussionContainer .discussionTitle {
     justify-content: flex-start;
@@ -119,7 +118,6 @@ p {
     width: 96%;
     height: 80%;
     padding: 0 2%;
-    /* background-color: rgb(27, 36, 48); */
     overflow: auto;
 }
 .discussion .emptyDiscussion {
@@ -188,18 +186,19 @@ p {
 .discussionInputContainer input, .searchUserInput input {
     width: inherit;
     padding: 15px 20px;
-    background-color: white;
+    background-color: #232e3a;
     outline: none;
     border: none;
     border-radius: 100px;
-    color: rgb(21,32,43);
+    color: white;
 }
 .discussionInputContainer input::placeholder {
-    opacity: .5;
+    opacity: .3;
+    color: white;
 }
 .discussionInputContainer button {
     outline: none;
-    padding: 12px 20px;
+    padding: 11px 20px;
     margin-left: 1%;
     color: white;
     font-size: 17px;
