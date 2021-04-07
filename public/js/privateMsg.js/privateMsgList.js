@@ -34,6 +34,7 @@ async function getPrivateDiscussions() {
         if (privateDiscussionList.length > 0) {
             privateDiscussionList.forEach(discussion => {
                 if (discussion.messages.length > 0) displayPrivateDiscussion(discussion)
+                //displayPrivateDiscussion(discussion)
             })
         } else {
             // Display the empty discussion message

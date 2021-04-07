@@ -59,8 +59,9 @@ function displayNewPrivateDiscussion(discussion) {
 
     const privateMsgList = document.querySelector('.privateMsgList')
     privateMsgList.insertAdjacentHTML('afterbegin', `
-        <div class="privateMsg active" onclick="displayMessages('${discussion.interlocutorId}', '${discussion.interlocutor}')">
+        <div class="privateMsg" onclick="displayMessages('${discussion.interlocutorId}', '${discussion.interlocutor}', '${discussion._id}')" id='${discussion._id}'>
             <p class="privateMsgUsername">${discussion.interlocutor}</p>
+            <p class="privateMsgDate">à l'instant</p>
         </div>
     `)
     // Show the discussion
