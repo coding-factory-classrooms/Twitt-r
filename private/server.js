@@ -36,6 +36,38 @@ app.post('/db/createAccount', (req, res) => {
     })
     createAccount.save()
 }) 
+// Create new Twèrt
+app.post('/db/newMessage', (req, res) => {
+    let msgData = req.body
+    
+    const newMessage = new Message({
+        authorId: authorId,
+        authorName: authorName,
+        body: body,
+        favCounter: 0,
+        retweetCounter: 0,
+        comments: []
+    })
+
+    newMessage.save()
+        .then((result) => { res.send(result) })
+        .catch((error) => { res.send(error) })
+})
+
+app.post('/db/getAuthorName', (req, res)=>{
+    let authorData = req.body
+    console.log(authorData);
+    Account.findById(req.body).then((user)=>{
+        res.send(user.username)
+    })
+})
+
+app.post('/db/sendMsg', (req, res)=>{
+    let msg = JSON.parse(req.body)
+    console.log(msg);
+    newTwert = new Twert(msg)
+    newTwert.save()
+})
 // Create a new private discussion
 app.post('/db/newPrivateDiscussion', async (req, res) => {
     const data = JSON.parse(req.body)
