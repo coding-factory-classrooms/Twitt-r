@@ -2,6 +2,7 @@
 const url = window.location.search
 const urlParams = new URLSearchParams(url)
 const userId = urlParams.get('id')
+const accountId =  JSON.parse(localStorage.getItem('twitt-r-data')).userId
 
 setUserData()
 
@@ -85,16 +86,16 @@ async function setUserData() {
                 </div>
                 <div class="interactContainer">
                     <div class="comentContainer">
-                        <button type="button" class="comentIcon btn onclick="commentThisTwert(${twert._id})""></button>
+                        <button type="button" class="comentIcon btn" onclick="commentThisTwert('${twert._id}','${accountId}')"></button>
                         <p>${twert.comments.length}</p>
                     </div>
                     <div class="rtContainer">
-                        <button type="button" class="rtIcon btn onclick="rtThisTwert(${twert._id})""></button>
-                        <p>${twert.retweetCounter}</p>
+                        <button type="button" class="rtIcon btn" onclick="rtThisTwert('${twert._id}','${accountId}')"></button>
+                        <p>${twert.retweet.length}</p>
                     </div>
                     <div class="favContainer">
-                        <button type="button" class="favIcon btn" onclick="likeThisTwert(${twert._id})"></button>
-                        <p>${twert.favCounter}</p>
+                        <button type="button" class="favIcon btn" onclick="likeThisTwert('${twert._id}','${accountId}')"></button>
+                        <p>${twert.fav.length}</p>
                     </div>
                 </div>
             </div>

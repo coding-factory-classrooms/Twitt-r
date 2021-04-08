@@ -86,8 +86,8 @@ app.post('/db/sendMsg', (req, res)=>{
         authorId: msg.authorId,
         authorName: msg.authorName,
         body: msg.body,
-        favCounter: 0,
-        retweetCounter: 0,
+        fav: [],
+        retweet: [],
         comments: []
     }
     newTwert = new Twert(twert)
@@ -201,20 +201,22 @@ app.post('/db/saveNewMsg', (req, res) => {
 })
 // Add a like to a twert
 app.post('/db/addALike', (req, res) => {
-    const id = req.body
+    const idTwert = JSON.parse(req.body).idTwert
+    const userId = JSON.parse(req.body).userId
 
-    Twert.findById(id).then(async twert => {
-        twert.fav.push(id)
+    Twert.findById(idTwert).then(async twert => {
+        twert.fav.push(userId)
         await twert.save()
     })
     res.sendStatus(200)
 })
 // Add a retweet to a twert
-app.post('/db/addALike', (req, res) => {
-    const id = req.body
+app.post('/db/addARetweet', (req, res) => {
+    const idTwert = JSON.parse(req.body).idTwert
+    const userId = JSON.parse(req.body).userId
 
-    Twert.findById(id).then(async twert => {
-        twert.retweet.push(id)
+    Twert.findById(idTwert).then(async twert => {
+        twert.retweet.push(userId)
         await twert.save()
     })
     res.sendStatus(200)
