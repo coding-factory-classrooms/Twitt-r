@@ -61,9 +61,9 @@ async function setUserData() {
         } else if (diffDate.hour > 0 ) {
             diffDate = `${diffDate.hour}h`
         }else if (diffDate.min > 0 ) {
-            diffDate = `${diffDate.min}min`
+            diffDate = `${diffDate.min}m`
         }else{
-            diffDate = `${diffDate.sec}sec`
+            diffDate = `${diffDate.sec}s`
         }
 
         twertsContainerElement.insertAdjacentHTML('afterbegin', `
