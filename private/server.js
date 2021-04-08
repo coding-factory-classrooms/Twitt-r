@@ -1,6 +1,7 @@
 const express = require('express')
 const db = require('./database/exports')
 const figlet = require('figlet')
+const bcrypt = require('bcryptjs')
 
 // Server initiation
 const app = express()

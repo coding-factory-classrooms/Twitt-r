@@ -1,0 +1,11 @@
+html, body {
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
+}
+
+containerleft {
+    background-image: url(/img/low-poly-grid-haikei.svg);
+    
+}
+

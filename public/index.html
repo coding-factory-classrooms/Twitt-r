@@ -4,10 +4,33 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="/css/homepage.css">
+    <title>Twittèr. le clone pas ouf</title>
 </head>
 <body>
-    yo
+    <div class="containerleft   ">
+        
+        
+        
+    </div>
+
+    <div class="right">
+        <div class="formContainer">
+            <form class="registerForm">
+                <h2 class="fontStyle">Inscrivez-vous</h2>
+                <input type="text" id="usernameInput" placeholder="Nom d'utilisateur" required>
+                <input type="email" id="emailInput" placeholder="email" required>
+                <input type="password" id="passwordInput" placeholder="Mot de passe" required>
+                <div class="showPasswordContainer">
+                    <input class="checkbox" id="passwordCheckbox" type="checkbox" onclick="showPassword()">
+                    <label class="fontStyle" for="passwordCheckbox">Montrer le mot de passe</label>
+                </div>
+                <button class="fontStyle registerBtn" type="button" id="registerBtn">S'inscrire</button>
+            </form>
+        </div>
+    </div>
+
 </body>
-<script src="js/test.js"></script>
+<script src="register.js"></script>
+<script src="login.js"></script>
 </html>
