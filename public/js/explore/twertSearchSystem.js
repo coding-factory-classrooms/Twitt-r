@@ -1,32 +1,6 @@
-const twertListContainer = document.querySelector('.twertListContainer')
 const exploreInput = document.querySelector('.exploreInputContainer input')
 const emptyTwertMsg = document.querySelector('.emptyTwertMsg')
 
-displayAllTwerts()
-
-async function displayAllTwerts() {
-    const twertList = await getAllTwerts()
-    twertList.forEach(twert => {
-        displayTwert(twert)
-    })
-}
-
-async function getAllTwerts() {
-    let toReturn
-
-    await fetch('/db/getMessages')
-    .then(response => response.json())
-    .then(twertList => toReturn = twertList)
-
-    return toReturn
-}
-function displayTwert(twert) {
-    twertListContainer.insertAdjacentHTML('beforeend', `
-        <div class="twert">
-            <p>${twert.body}</p>
-        </div>
-    `)
-}
 // When user click on a trend, search and display all twerts of this trend
 const trends = document.querySelectorAll('.exploreTrends li')
 for (let i = 0; i < trends.length; i++) {
