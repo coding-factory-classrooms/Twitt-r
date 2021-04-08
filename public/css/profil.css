@@ -16,11 +16,6 @@ main {
     width: 650px;
     display: flex;
     flex-direction: column;
-    border-width: 1px;
-    border-style: solid;
-    border-bottom: none;
-    border-top: none;
-    border-color: rgb(56, 68, 77);
 }
 .profilHeader {
     display: flex;
@@ -28,9 +23,9 @@ main {
     justify-content: flex-start;
     align-items: center;
     height: 53px;
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
-    border-bottom-color: rgb(56, 68, 77);
+    border-bottom: 1px solid rgb(56, 68, 77);
+    border-left: 1px solid rgb(56, 68, 77);
+    border-right: 1px solid rgb(56, 68, 77);
     padding: 0 16px;
 }
 .usernameAndTwerts {
@@ -43,6 +38,7 @@ main {
     display: flex;
     align-items: center;
     flex-direction: row;
+    justify-content: center;
     min-width: 56px;
 }
 .backArrow img {
@@ -73,6 +69,10 @@ main {
     color: rgb(136, 153, 166);
     font-weight: 400;
     margin-right: 20px;
+}
+.backgroundAndDetailsProfil{
+    border-left: 1px solid rgb(56, 68, 77);
+    border-right: 1px solid rgb(56, 68, 77);
 }
 .backgroundImage {
     overflow: hidden;
@@ -142,9 +142,7 @@ main {
     height: 52px;
     display: flex;
     flex-direction: row;
-    border-bottom: rgb(56, 68, 77);
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
+    border-bottom:1px solid rgb(56, 68, 77);
 }
 .twertsOfProfilBtn {
     width: 50%;
@@ -168,8 +166,9 @@ main {
     color: rgb(29, 161, 242);
     background-color: rgba(29, 161, 242, 0.1);
 }
-.twertCard {    
-    border: 1px solid rgb(56, 68, 77) ;
+.twertCard {
+    margin: 9px 0; 
+    box-shadow: 1px -1px 12px 1px rgba(36, 41, 46, 0.31)
 }
 .twertUserAndBody {
     display: flex;
@@ -212,9 +211,37 @@ main {
     justify-content: space-evenly;
     align-items: center;
 }
-.favIcon, .rtIcon, .shareIcon, .comentIcon {
-    width: 18.75px;
-    height: 18.75px;
+.favIcon, .rtIcon, .comentIcon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 9999px;
+    background-size: 18.75px;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+.favIcon{
+    background-image: url(../img/like.png);
+}
+.rtIcon{
+    background-image: url(../img/retweet.png);
+}
+.comentIcon{
+    background-image: url(../img/coment.png);
+}
+.comentIcon:hover{
+    background-color: rgba(29, 161, 242, 0.1);
+    background-image: url(../img/comment-blue.png);
+}
+.rtIcon:hover{
+    background-color: rgba(23, 191, 99, 0.1);
+    background-image: url(../img/retweet-green.png);
+}
+.favIcon:hover{
+    background-color: rgba(224, 36, 94, 0.1);
+    background-image: url(../img/like-red.png);
 }
 .comentContainer, .rtContainer , .favContainer , .shareContainer{
     display: flex;

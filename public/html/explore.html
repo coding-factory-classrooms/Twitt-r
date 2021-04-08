@@ -34,13 +34,28 @@
         </ul>
     </div>
 
-    <div class="exploreContainer">
-
-        <!-- WRITE CODE HERE -->
-
+    <div class="exploreInputContainer">
+        <input type="text" placeholder="Rechercher sur Twitèr">
+    </div>
+    
+    <div class="twertListContainer">
+        <p class="emptyTwertMsg">Aucun twert trouvé parlant de <span></span></p>
     </div>
 
-    <script src="../js/explore.js"></script>
+    <div class="exploreTrendsContainer">
+        <div class="exploreTrends">
+            <div class="exploreTitleContainer">
+                <p class="exploreTrendTitle">Tendances</p>
+                <img src="../img/trend.png" alt="Tendances">
+            </div>
+            <ul>
+            </ul>
+        </div>
+    </div>
+        
+    <script src="../js/explore/trendsAlgorithm.js"></script>
+    <script src="../js/explore/twertSearchSystem.js"></script>
+    <script src="../js/explore/twertDisplay.js"></script>
     <script src="../js/menu.js"></script>
 </body>
 </html>
