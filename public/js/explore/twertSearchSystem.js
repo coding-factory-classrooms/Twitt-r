@@ -19,14 +19,14 @@ function setTrendsListener() {
 
 function searchTwert(toSearch) {
     // Twert search system
-    const twerts = document.querySelectorAll('.twertListContainer .twert')
+    const twerts = document.querySelectorAll('.twertListContainer .twertCard')
     
     twerts.forEach(twertElement => {
-        const twert = twertElement.querySelector('p').innerHTML.toLowerCase();
+        const twert = twertElement.querySelector('.twertContent .body').innerHTML.toLowerCase();
 
         // If the twert body doesn't match with the user input, hide the twert
         if (twert.indexOf(toSearch) == -1) twertElement.style.display = 'none'
-        else twertElement.style.display = 'flex'
+        else twertElement.style.display = 'block'
     })
 
     // If all twerts are hiden, display the error message
