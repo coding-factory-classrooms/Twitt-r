@@ -2,6 +2,7 @@
 const url = window.location.search
 const urlParams = new URLSearchParams(url)
 const userId = urlParams.get('id')
+const accountId =  JSON.parse(localStorage.getItem('twitt-r-data')).userId
 
 setUserData()
 
@@ -60,9 +61,9 @@ async function setUserData() {
         } else if (diffDate.hour > 0 ) {
             diffDate = `${diffDate.hour}h`
         }else if (diffDate.min > 0 ) {
-            diffDate = `${diffDate.min}min`
+            diffDate = `${diffDate.min}m`
         }else{
-            diffDate = `${diffDate.sec}sec`
+            diffDate = `${diffDate.sec}s`
         }
 
         twertsContainerElement.insertAdjacentHTML('afterbegin', `
@@ -84,19 +85,19 @@ async function setUserData() {
                     </div>
                 </div>
                 <div class="interactContainer">
-                        <div class="comentContainer">
-                            <img class="comentIcon" src="../img/coment.png" alt="comentIcon">
-                            <p>${twert.comments.length}</p>
-                        </div>
-                        <div class="rtContainer">
-                            <img class="rtIcon" src="../img/retweet.png" alt="rtIcon">
-                            <p>${twert.retweetCounter}</p>
-                        </div>
-                        <div class="favContainer">
-                            <img class="favIcon" src="../img/like.png" alt="favIcon">
-                            <p>${twert.favCounter}</p>
-                        </div>
+                    <div class="comentContainer">
+                        <button type="button" class="comentIcon btn" onclick="commentThisTwert('${twert._id}','${accountId}')"></button>
+                        <p>${twert.comments.length}</p>
                     </div>
+                    <div class="rtContainer">
+                        <button type="button" class="rtIcon btn" onclick="rtThisTwert('${twert._id}','${accountId}')"></button>
+                        <p>${twert.retweet.length}</p>
+                    </div>
+                    <div class="favContainer">
+                        <button type="button" class="favIcon btn" onclick="likeThisTwert('${twert._id}','${accountId}')"></button>
+                        <p>${twert.fav.length}</p>
+                    </div>
+                </div>
             </div>
         `)
         msgCounter++

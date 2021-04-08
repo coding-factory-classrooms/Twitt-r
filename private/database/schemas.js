@@ -33,8 +33,8 @@ const twertSchema = new mongoose.Schema({
     authorId: String,
     authorName: String,
     body: String,
-    favCounter: Number,
-    retweetCounter: Number,
+    fav: Array,
+    retweet: Array,
     comments: Array
 }, {timestamps: true})
 
