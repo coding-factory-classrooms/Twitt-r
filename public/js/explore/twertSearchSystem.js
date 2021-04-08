@@ -1,18 +1,21 @@
 const exploreInput = document.querySelector('.exploreInputContainer input')
 const emptyTwertMsg = document.querySelector('.emptyTwertMsg')
 
-// When user click on a trend, search and display all twerts of this trend
-const trends = document.querySelectorAll('.exploreTrends li')
-for (let i = 0; i < trends.length; i++) {
-    trends[i].addEventListener('click', () => {
-        exploreInput.value = trends[i].querySelector('.trendTitle').innerHTML
-        searchTwert(exploreInput.value.toLowerCase())
-    })
-    
-}
 exploreInput.addEventListener('input', () => {
     searchTwert(exploreInput.value.toLowerCase())
 })
+
+function setTrendsListener() {
+    // When user click on a trend, search and display all twerts of this trend
+    const trends = document.querySelectorAll('.exploreTrends li')
+    
+    for (let i = 0; i < trends.length; i++) {
+        trends[i].addEventListener('click', () => {
+            exploreInput.value = trends[i].querySelector('.trendBody').innerHTML
+            searchTwert(exploreInput.value.toLowerCase())
+        })
+    }
+}
 
 function searchTwert(toSearch) {
     // Twert search system

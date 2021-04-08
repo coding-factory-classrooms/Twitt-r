@@ -63,10 +63,21 @@ function displayTrends(hashtagArray) {
         const trend = hashtagArray[i];
         trendsContainer.insertAdjacentHTML('beforeend', `
             <li>
-                <p class="trendTitle">${trend.body}</p>
+                <p class="trendBody">${trend.body}</p>
                 <p class="trendTotalTwert">${trend.counter} twert${trend.counter > 1 ? 's' : ''}</p>
             </li>
         `)
     }
+    // When all trends are displayed, set a listener on each of them
+    setTrendsListener()
+}
 
+async function getAllTwerts() {
+    let toReturn
+
+    await fetch('/db/getMessages')
+    .then(response => response.json())
+    .then(twertList => toReturn = twertList)
+
+    return toReturn
 }

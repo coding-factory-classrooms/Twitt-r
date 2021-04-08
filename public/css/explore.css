@@ -64,29 +64,46 @@ p {
 /* TRENDS */
 .exploreTrendsContainer {
     width: 15%;
+    min-width: 200px;
 }
 .exploreTrends {
     width: 15%;
+    min-width: 200px;
     height: 100vh;
     position: fixed;
     right: 0;
     top: 0;
     display: flex;
-    align-items: center;
+    flex-direction: column;
     justify-content: center;
-    background-color: rgb(21,32,43);
     border-left: 1px solid #80808042;
 }
 .exploreTrends ul {
     padding-left: 0;
     width: 100%;
 }
+.exploreTitleContainer {
+    display: flex;
+    align-items: center;
+    padding-left: 20%;
+}
+.exploreTitleContainer .exploreTrendTitle {
+    font-size: 22px;
+    color: rgb(29, 161, 242);
+    font-weight: bold;
+}
+.exploreTitleContainer img {
+    width: 22px;
+    margin-left: 10px;
+    margin-bottom: 7px;
+    
+}
 .exploreTrends li {
     width: 100%;
     list-style: none;
-    padding: 7px 0;
+    padding: 12px 0;
     padding-left: 20%;
-    margin: 10px 0;
+    margin: 5px 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -96,13 +113,14 @@ p {
 .exploreTrends li:hover {
     background-color: rgb(27, 36, 48);
 }
-.exploreTrends .trendTitle {
+.exploreTrends .trendBody {
     color: white;
-    font-weight: bold;
+    font-weight: 500;
     font-size: 18px;
     text-decoration: none;
+    line-height: 17px;
 }
 .exploreTrends .trendTotalTwert {
     opacity: .5;
-    font-size: 13px;
+    font-size: 12px;
 }
