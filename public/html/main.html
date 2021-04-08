@@ -14,7 +14,7 @@
 </head>
 
 <body>
-    <div class="row">
+    <div class="row" id="principalHome">
         <div class="col-sm-3" class="container">
             <div class="menuContainer">
                 <ul>
@@ -43,19 +43,28 @@
                 <p>Accueil</p>
             </div>
 
-            <div class="row">
-                <div class="col-sm-2">
+            <div id="">
+                <div class="row" id="topHome">
+                    <div class="col-sm-2">
+                        <img src="../img/cactus.png" alt="Profil" width="60px" style=" margin-top: 10px;">
+                    </div>
+                    <div class="col-sm-10" class="textAreaContainer" id="filActu">
+                        <div id="msg">
+                            <textarea id="msgArea" placeholder="Quoi de neuf ?" maxlength="255"></textarea>
+                        </div>
+                        <div id="twert">
+                            <span class="fontStyle">0/255</span>
+                            <button type="button" class="validMsgBtn" onclick="validTextArea()">Twèrter</button>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-sm-10" class="textAreaContainer" class="container" id="filActu">
-                    <textarea id="msgArea" placeholder="Quoi de neuf ?" maxlength="255"></textarea>
-                    <span class="fontStyle">0/255</span>
-                    <button class="validMsgBtn" onclick="validTextArea()">Twèrter</button>
+                <div id="bottomHome">  
+
                 </div>
             </div>
 
         </div>
         <div class="col-sm-4" class="container">
-            .col
         </div>
       </div>
     <div>

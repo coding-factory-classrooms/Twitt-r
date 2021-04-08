@@ -4,17 +4,13 @@ body {
     background-color: rgb(21,32,43);
     color: white;
 }
-.col-sm-4 {
-}
 .col-sm-5{
     border: 1px solid rgb(58, 68, 77);
     border-top:0px ;
     padding-right: 0px;
     padding-left: 0px;
 }
-.col-sm-3{
-}
-.row{
+#principalHome{
     height: 1000px;
 }
 #accueil{
@@ -28,8 +24,34 @@ body {
     font-size: 20px;
     font-weight: 800;
 }
-#filActu{
-}
 #msgArea{
     background-color: rgb(21,32,43);
+    width: 94%;
+    color: white;
+    border: none;
+    height: 85%;
+
+    border-bottom: 1px solid rgb(58, 68, 77);
+    margin-right: 20px;
+}
+::placeholder{
+    color: 	gray;
+}
+.validMsgBtn{
+    color: white;
+    background-color: rgb(29, 161, 242);
+    border: none;
+    border-radius: 20px 20px;
+    height: 4%;
+    width: 20%;
+}
+#topHome{
+    border-bottom: 1px solid rgb(58, 68, 77);
+    height: 175px;
+    width: 100%;
+    margin: 0;
+}
+#msg {
+    height: 70%;
+    margin-top: 15px;
 }
