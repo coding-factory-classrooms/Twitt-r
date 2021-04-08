@@ -199,3 +199,23 @@ app.post('/db/saveNewMsg', (req, res) => {
     })
     res.sendStatus(200)
 })
+// Add a like to a twert
+app.post('/db/addALike', (req, res) => {
+    const id = req.body
+
+    Twert.findById(id).then(async twert => {
+        twert.fav.push(id)
+        await twert.save()
+    })
+    res.sendStatus(200)
+})
+// Add a retweet to a twert
+app.post('/db/addALike', (req, res) => {
+    const id = req.body
+
+    Twert.findById(id).then(async twert => {
+        twert.retweet.push(id)
+        await twert.save()
+    })
+    res.sendStatus(200)
+})
