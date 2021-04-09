@@ -52,19 +52,6 @@ async function setUserData() {
     const allTwertsProfile = await getAllUserMessages(userId)
     for (let i = 0; i < allTwertsProfile.length; i++) {
         const twert = allTwertsProfile[i];
-        
-        const date = new Date(twert.createdAt)
-        const today = new Date()
-        let diffDate = dateDiff(date, today)
-        if (diffDate.day > 0 ) {
-            diffDate = `${diffDate.day}j`
-        } else if (diffDate.hour > 0 ) {
-            diffDate = `${diffDate.hour}h`
-        }else if (diffDate.min > 0 ) {
-            diffDate = `${diffDate.min}m`
-        }else{
-            diffDate = `${diffDate.sec}s`
-        }
 
         twertsContainerElement.insertAdjacentHTML('afterbegin', `
             <div class="twertCard">
@@ -77,7 +64,7 @@ async function setUserData() {
                     <div class="twertInfoContainer">
                         <div class="twertInfo">
                             <p class="username">${user.username}</p>
-                            <p class="diffTime">${diffDate} </p>
+                            <p class="diffTime">${getDiffTime(twert.createdAt)} </p>
                         </div>
                         <div class="twertContent">
                             <p class="body">${twert.body}</p>
@@ -90,11 +77,11 @@ async function setUserData() {
                         <p>${twert.comments.length}</p>
                     </div>
                     <div class="rtContainer">
-                        <button type="button" class="rtIcon btn" onclick="deleteRtThisTwert('${twert._id}','${accountId}')"></button>
+                        <button type="button" class="rtIcon btn" onclick="toggleRt('${twert._id}','${accountId}')"></button>
                         <p>${twert.retweet.length}</p>
                     </div>
                     <div class="favContainer">
-                        <button type="button" class="favIcon btn" onclick="likeThisTwert('${twert._id}','${accountId}')"></button>
+                        <button type="button" class="favIcon btn" onclick="toggleLike('${twert._id}','${accountId}')"></button>
                         <p>${twert.fav.length}</p>
                     </div>
                 </div>
@@ -169,21 +156,17 @@ async function getAllMessages() {
     return messages
 }
 
-function dateDiff(date1, date2){
-    var diff = {}  
-    var tmp = date2 - date1;
- 
-    tmp = Math.floor(tmp/1000); 
-    diff.sec = tmp % 60; 
- 
-    tmp = Math.floor((tmp-diff.sec)/60); 
-    diff.min = tmp % 60; 
- 
-    tmp = Math.floor((tmp-diff.min)/60); 
-    diff.hour = tmp % 24;   
-     
-    tmp = Math.floor((tmp-diff.hour)/24);
-    diff.day = tmp;
-     
-    return diff;
+function getDiffTime(createdAt) {
+    const date = new Date(createdAt)
+    const today = new Date()
+    
+    const diffMilli = today - date
+    const diffMinutes = Math.floor((diffMilli % (1000 * 60 * 60)) / (1000 * 60))
+    const diffHours = Math.floor((diffMilli % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toFixed(0)
+    const diffDays = Math.floor(((diffMilli % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)) / 24).toFixed(0)
+
+    if (diffDays > 0) return `Il y a ${diffDays} jour${diffDays > 1 ? 's' : ''}`
+    else if (diffHours > 0) return `Il y a ${diffHours} heure${diffHours > 1 ? 's' : ''}`
+    else if (diffMinutes > 0) return `Il y a ${diffMinutes} minute${diffMinutes > 1 ? 's' : ''}`
+    else return 'à l\'instant'
 }
