@@ -1,20 +1,19 @@
 const registerBtn = document.querySelector('.registerBtn')
-const confirmationEmailAlert = document.querySelector('.emailConfirmationAlertContainer')
 const userEmailP = document.querySelector('.userEmail')
 
 // Get local storage information
 let twittrData = JSON.parse(localStorage.getItem('twittrData'))
 
 // If user is connected, Redirection to connection page
-// if(twittrData.connected == true){
-//     window.location.href = '../index.html'
-// }
+if(twittrData.connected == true){
+    window.location.href = 'html/main.html'
+}
 
 registerBtn.addEventListener('click', async (event) => {
     const inputs = document.querySelectorAll('.registerForm input')
     // Don't reset the form
     event.preventDefault()
-
+    
     // check if all inputs are filled and if the values aren't already taken
     let isInputsCorrect = await checkInputs(inputs)
 
@@ -25,14 +24,32 @@ registerBtn.addEventListener('click', async (event) => {
             email: inputs[1].value,
             password: await hashPassword(inputs[2].value),
         }
-
-        // sendVerificationEmail(userData)
-
-        // // Display email sent message
-        // confirmationEmailAlert.style.display = 'flex'
-        // userEmailP.innerHTML = userData.email
+        
+        createAccount(userData)
     }
 })
+
+async function setLocalStorageData() {
+    let data = JSON.parse(localStorage.getItem('twittrData'))
+    data.userId = await getUserId(userEmail)
+    data.connected = true
+    localStorage.setItem('twittrData', JSON.stringify(data))
+    console.log(JSON.parse(localStorage.getItem('twittrData')));
+}
+
+async function createAccount(userData) {
+    // Create a new user in the database
+    let options = {
+        method: 'POST',
+        
+        body: JSON.stringify(userData)
+    }
+    
+    await fetch('/db/createAccount', options)
+    
+    // setLocalStorageData()
+}
+
 async function checkInputs(inputs) {
     let emailRegexp = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/
 
@@ -117,7 +134,7 @@ async function getAllAccounts() {
     return accounts
 }
 function errorMsg(msg) {
-    const msgContainer = document.querySelector('.msgContainer')
+    const msgContainer = document.querySelector('.registerMsgContainer')
     msgContainer.innerHTML = msg
     msgContainer.classList.remove('successMsg')
     msgContainer.classList.add('errorMsg')

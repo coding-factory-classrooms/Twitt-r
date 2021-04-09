@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/homepage.css">
+    <link rel="icon" href="img/tab_logo.png">
     <title>Twittèr. le clone pas ouf</title>
 </head>
 <body>
@@ -18,14 +19,27 @@
         <div class="formContainer">
             <form class="registerForm">
                 <h2 class="fontStyle">Inscrivez-vous</h2>
-                <input type="text" id="usernameInput" placeholder="Nom d'utilisateur" required>
-                <input type="email" id="emailInput" placeholder="email" required>
-                <input type="password" id="passwordInput" placeholder="Mot de passe" required>
+                <input type="text" id="registerUsernameInput" placeholder="Nom d'utilisateur" required>
+                <input type="email" id="registerEmailInput" placeholder="email" required>
+                <input type="password" id="registerPasswordInput" placeholder="Mot de passe" required>
                 <div class="showPasswordContainer">
-                    <input class="checkbox" id="passwordCheckbox" type="checkbox" onclick="showPassword()">
+                    <input class="checkbox" id="registerPasswordCheckbox" type="checkbox" onclick="showPassword()">
                     <label class="fontStyle" for="passwordCheckbox">Montrer le mot de passe</label>
                 </div>
                 <button class="fontStyle registerBtn" type="button" id="registerBtn">S'inscrire</button>
+                <p class="registerMsgContainer"></p>
+            </form>
+            
+            <form>
+                <h2 class="fontStyle">Connectez-vous</h2>
+                <input type="email" id="email" required placeholder="Email">
+                <input id="password" type="password" required placeholder="Mot de passe">
+                <div class="showPasswordContainer">
+                    <input class="checkbox" type="checkbox" id="checkbox" onclick="showPasswords()">
+                    <label class="fontStyle" for="checkbox">Montrer le mot de passe</label>
+                </div>
+                <button class="fontStyle" id="connectionBtn">Connexion</button>
+                <p class="logMsgContainer"></p>
             </form>
         </div>
     </div>

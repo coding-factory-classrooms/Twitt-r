@@ -1,19 +1,15 @@
 const connectionBtn = document.querySelector('#connectionBtn')
-const forgotPasswordBtn = document.querySelector('.forgotPasswordLink')
-const forgotPasswordContainer = document.querySelector('.forgotPasswordContainer')
 const mailInput = document.querySelector('#email')
-const recuperationEmailInput = document.querySelector('#forgotPasswordInput')
-const rebootPasswordBtn = document.querySelector('.forgotPassword button')
 
 // Get local storage information
 if (localStorage.getItem('twittrData') == null) {
     localStorage.setItem('twittrData', '{}')
 }
   
-// If user is connected, Redirection to main page
-// if (JSON.parse(localStorage.getItem('twittrData')).connected) {
-//     window.location.href = 'html/main.html'
-// }
+//If user is connected, Redirection to main page
+if (JSON.parse(localStorage.getItem('twittrData')).connected) {
+    window.location.href = 'html/main.html'
+}
 
 connectionBtn.addEventListener('click', async (event) => {
     const loginInput = document.querySelectorAll('.formContainer input')
@@ -31,24 +27,6 @@ connectionBtn.addEventListener('click', async (event) => {
         localStorage.setItem('twittrData', JSON.stringify(data))
 
         window.location.href = 'html/main.html'
-    }
-})
-
-// Display the "forgot password" section
-forgotPasswordBtn.addEventListener('click', () => {
-    forgotPasswordContainer.style.display = 'flex'
-    // If user already write his email in the previous email input, display it in the new email input
-    recuperationEmailInput.value = mailInput.value
-    recuperationEmailInput.focus()
-})
-
-// Reboot the password
-rebootPasswordBtn.addEventListener('click', async () => {
-    let isEmailCorrect = await checkEmail(recuperationEmailInput.value)
-
-    if (isEmailCorrect) {
-        sendRebootPasswordEmail(recuperationEmailInput.value)
-        sucMsg('Email envoyé')
     }
 })
 
@@ -72,6 +50,7 @@ async function checkInputs(inputs) {
     }
     return true
 }
+
 async function checkEmail (email) {
     let accounts = await getAllAccounts()
     
@@ -99,6 +78,7 @@ async function checkPassword (password, email) {
     }
     return false
 }
+
 async function comparePasswords(hash, password) {
     let match
     let passwords = {
@@ -125,6 +105,7 @@ async function comparePasswords(hash, password) {
     return match
 
 }
+
 async function getAllAccounts() {
     let accounts
     await fetch('/db/getAccounts')
@@ -132,12 +113,14 @@ async function getAllAccounts() {
         .then((data) => accounts = data)
     return accounts
 }
+
 function errorMsg(msg) {
-    const msgContainer = document.querySelector('.formContainer .msgContainer')
+    const msgContainer = document.querySelector('.logMsgContainer')
     msgContainer.innerHTML = msg
     msgContainer.classList.remove('successMsg')
     msgContainer.classList.add('errorMsg')
 }
+
 async function getUserId(email) {
     // Get the id of a user with his email
     let accounts = await getAllAccounts()
@@ -150,6 +133,7 @@ async function getUserId(email) {
     }
     return id
 }
+
 function showPasswords() {
     let password = document.getElementById('password');
     
