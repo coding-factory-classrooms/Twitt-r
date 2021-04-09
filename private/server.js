@@ -74,7 +74,6 @@ app.get('/db/getMessages', (req, res) => {
 })
 // Get name of the author of a twert
 app.post('/db/getAuthorName', (req, res)=>{
-    let authorData = req.body
     Account.findById(req.body).then((user)=>{
         res.send(user.username)
     })
