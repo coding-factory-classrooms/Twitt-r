@@ -90,7 +90,7 @@ async function setUserData() {
                         <p>${twert.comments.length}</p>
                     </div>
                     <div class="rtContainer">
-                        <button type="button" class="rtIcon btn" onclick="rtThisTwert('${twert._id}','${accountId}')"></button>
+                        <button type="button" class="rtIcon btn" onclick="deleteRtThisTwert('${twert._id}','${accountId}')"></button>
                         <p>${twert.retweet.length}</p>
                     </div>
                     <div class="favContainer">
