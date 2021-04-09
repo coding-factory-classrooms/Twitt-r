@@ -22,12 +22,12 @@ function displayTwert(twert, user) {
             <div class="twertUserAndBody">
                 <div class="ppTwertContainer">
                     <div class="ppTwert">
-                        <img src="${user.profilImg}" alt="profilImage">
+                        <a href="profil.html?id=${user._id}"><img src="${user.profilImg}" alt="profilImage"></a>
                     </div>
                 </div>
                 <div class="twertInfoContainer">
                     <div class="twertInfo">
-                        <p class="username">${user.username}</p>
+                        <a href="profil.html?id=${user._id}"><p class="username">${user.username}</p></a>
                         <p class="diffTime">${getDiffTime(twert.createdAt)} </p>
                     </div>
                     <div class="twertContent">

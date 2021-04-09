@@ -67,6 +67,10 @@ p {
     margin-right: 20px;
     font-weight: 500;
 }
+.twertInfo a {
+    color: white;
+    text-decoration: none;
+}
 .ppTwert{
     width: 48px;
     height: 48px;

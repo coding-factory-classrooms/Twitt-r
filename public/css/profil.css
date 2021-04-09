@@ -16,7 +16,8 @@ main {
 }
 .profilInfoContainer {
     height: 100%;
-    width: 70% ;
+    width: 50%;
+    min-width: 500px;
     display: flex;
     flex-direction: column;
 }
@@ -169,7 +170,16 @@ main {
 }
 .twertCard {
     margin: 9px 0; 
-    box-shadow: 1px -1px 12px 1px rgba(36, 41, 46, 0.31)
+    margin: 9px 0; 
+    box-shadow: 0px 0px 12px 1px rgb(9, 9, 10, .3);
+    border: 1px solid rgba(29, 161, 242, .1);
+    border-radius: 10px;
+    padding: 20px 20px 0 20px;
+}
+.diffTime {
+    font-size: 12px;
+    opacity: .3;
+    z-index: -1;
 }
 .twertUserAndBody {
     display: flex;
@@ -180,10 +190,14 @@ main {
 }
 .twertInfo {
     display: flex;
-    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
 }
 .twertInfo .username{
     margin-right: 20px;
+}
+.twertInfo a {
+    text-decoration: none;
 }
 .ppTwert{
     width: 48px;
@@ -196,6 +210,9 @@ main {
     border-radius: 9999px;
     overflow: hidden;
     align-self: flex-end;
+}
+.twertContent .body {
+    text-align: justify;
 }
 .ppTwert img {
     width: 100%;
