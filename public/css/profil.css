@@ -113,7 +113,7 @@ main {
     align-items: flex-end;
     justify-content: space-between;
 }
-.followBtn {
+.profilMainBtn {
     height: 40px;
     width: 135px;
     border-radius: 9999px;
@@ -121,9 +121,13 @@ main {
     border-color: rgb(29, 161, 242);
     color: rgb(29, 161, 242);
 }
-.followBtn:hover{
+.profilMainBtn:hover{
     background-color: rgba(29, 161, 242, 0.1);
     color: rgb(29, 161, 242);
+}
+.profilFollowed {
+    background-color: rgb(29, 161, 242);
+    color: white;
 }
 .usernameUnderImage {
     display: flex;
