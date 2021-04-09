@@ -31,22 +31,25 @@ p {
     border: none;
     border-radius: 100px;
     color: white;
-    z-index: +1;
+    z-index: +2;
 }
 /* TWERT LIST */
 .twertListContainer {
     width: 70%;
+    height: fit-content;
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-bottom: 5vh;
 }
 
 .twertCard {
-    width: 70%;
+    width: 60%;
     margin: 9px 0; 
     box-shadow: 0px 0px 12px 1px rgb(9, 9, 10, .3);
+    border: 1px solid rgba(29, 161, 242, .1);
     border-radius: 10px;
-    padding: 20px;
+    padding: 20px 20px 0 20px;
 }
 .twertUserAndBody {
     display: flex;
@@ -57,10 +60,12 @@ p {
 }
 .twertInfo {
     display: flex;
-    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
 }
 .twertInfo .username{
     margin-right: 20px;
+    font-weight: 500;
 }
 .ppTwert{
     width: 48px;
@@ -89,6 +94,15 @@ p {
     justify-content: space-evenly;
     align-items: center;
 }
+.diffTime {
+    font-size: 12px;
+    opacity: .3;
+    z-index: -1;
+}
+.body {
+    text-align: justify;
+    margin: 5px 0;
+}
 .favIcon, .rtIcon, .comentIcon {
     width: 40px;
     height: 40px;
@@ -99,6 +113,11 @@ p {
     background-size: 18.75px;
     background-repeat: no-repeat;
     background-position: center center;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    outline: none;
+    transition: background-color .2s;
 }
 .favIcon{
     background-image: url(../img/like.png);

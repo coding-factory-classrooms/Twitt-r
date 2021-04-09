@@ -58,9 +58,9 @@ function getDiffTime(createdAt) {
     const diffHours = Math.floor((diffMilli % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toFixed(0)
     const diffDays = Math.floor(((diffMilli % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)) / 24).toFixed(0)
 
-    if (diffDays > 0) return diffDays + 'j'
-    else if (diffHours > 0) return diffHours + 'h'
-    else if (diffMinutes > 0) return diffMinutes + 'm'
+    if (diffDays > 0) return `Il y a ${diffDays} jour${diffDays > 1 ? 's' : ''}`
+    else if (diffHours > 0) return `Il y a ${diffHours} heure${diffHours > 1 ? 's' : ''}`
+    else if (diffMinutes > 0) return `Il y a ${diffMinutes} minute${diffMinutes > 1 ? 's' : ''}`
     else return 'à l\'instant'
 }
 
@@ -82,4 +82,25 @@ async function getTwertAuthor(id) {
     .then(result => toReturn = result)
 
     return toReturn
+}
+
+async function rtThisTwert(idTwert, userId) {
+    const options = {
+        method: 'POST',
+        body: JSON.stringify({
+            idTwert: idTwert,
+            userId: userId,
+        })
+    }
+    await fetch('/db/addARetweet', options)
+}
+async function likeThisTwert(idTwert, userId) {
+    const options = {
+        method: 'POST',
+        body: JSON.stringify({
+            idTwert: idTwert,
+            userId: userId,
+        })
+    }
+    await fetch('/db/addALike', options)
 }
