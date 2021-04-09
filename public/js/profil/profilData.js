@@ -21,6 +21,10 @@ async function setUserData() {
         twertsContainerElement.removeChild(twertsElements[i]);
     }
 
+    // Set background profile picture 
+    const backgroundProfilContainer = document.querySelector('.backgroundImage img')
+    backgroundProfilContainer.src = user.backgroundProfilImg
+
     // Set profile picture 
     const profilePictureContainer = document.querySelector('.profilImage img')
     profilePictureContainer.src = user.profilImg

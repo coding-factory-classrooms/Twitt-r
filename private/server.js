@@ -72,6 +72,88 @@ app.get('/db/getMessages', (req, res) => {
         res.send(data)
     })
 })
+// Get the list of follow of a user
+app.post('/db/getFollowOfUser', (req, res) => {
+    Account.findById(req.body).then(async user => {
+        res.send(user.follow)
+    })
+})
+// Get the list of followers of a user
+app.post('/db/getFollowersOfUser', (req, res) => {
+    Account.findById(req.body).then(async user => {
+        res.send(user.followers)
+    })
+})
+// Follow a user 
+app.post('/db/followProfil', (req, res) => {
+    const data = JSON.parse(req.body)
+
+    // Add the profilId to follow array of the user
+    Account.findById(data.userId).then(async user => {
+        user.follow.push(data.profilId)
+        await user.save()
+    })
+    // Add the userId to followers array of the profil user
+    Account.findById(data.profilId).then(async user => {
+        user.followers.push(data.userId)
+        await user.save()
+    })
+    res.sendStatus(200)
+})
+// Unfollow a user 
+app.post('/db/unfollowProfil', (req, res) => {
+    const data = JSON.parse(req.body)
+
+    // Remove the profilId from follow array of the user
+    Account.findById(data.userId).then(async user => {
+        for (let i = 0; i < user.follow.length; i++) {
+            if (user.follow[i] == data.profilId) {
+                user.follow.splice(i, 1)
+                await user.save()
+            }
+        }
+    })
+    // Remove the userId from followers array of the profil user
+    Account.findById(data.profilId).then(async user => {
+        for (let i = 0; i < user.followers.length; i++) {
+            if (user.followers[i] == data.userId) {
+                user.followers.splice(i, 1)
+                await user.save()
+            }
+        }
+    })
+    res.sendStatus(200)
+})
+// Update biography of user 
+app.post('/db/updateBiography', (req, res) => {
+    const data = JSON.parse(req.body)
+
+    Account.findById(data.userId).then(async user => {
+        user.description = data.body
+        await user.save()
+    })
+    res.sendStatus(200)
+})
+// Update profil image of user 
+app.post('/db/updateProfilImg', (req, res) => {
+    const data = JSON.parse(req.body)
+
+    Account.findById(data.userId).then(async user => {
+        user.profilImg = data.body
+        await user.save()
+    })
+    res.sendStatus(200)
+})
+// Update background profil image of user 
+app.post('/db/updateBackgroundProfilImg', (req, res) => {
+    const data = JSON.parse(req.body)
+
+    Account.findById(data.userId).then(async user => {
+        user.backgroundProfilImg = data.body
+        await user.save()
+    })
+    res.sendStatus(200)
+})
 // Get Message By Id
 app.post('/db/getMessageById', (req, res) => {
     const id = req.body
