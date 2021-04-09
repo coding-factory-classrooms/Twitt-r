@@ -11,9 +11,12 @@ main {
     display: flex;
     justify-content: center;
 }
+.btn{
+    transition-duration: 0.4s;
+}
 .profilInfoContainer {
     height: 100%;
-    width: 650px;
+    width: 70% ;
     display: flex;
     flex-direction: column;
 }
@@ -24,8 +27,6 @@ main {
     align-items: center;
     height: 53px;
     border-bottom: 1px solid rgb(56, 68, 77);
-    border-left: 1px solid rgb(56, 68, 77);
-    border-right: 1px solid rgb(56, 68, 77);
     padding: 0 16px;
 }
 .usernameAndTwerts {
@@ -71,8 +72,7 @@ main {
     margin-right: 20px;
 }
 .backgroundAndDetailsProfil{
-    border-left: 1px solid rgb(56, 68, 77);
-    border-right: 1px solid rgb(56, 68, 77);
+    box-shadow: 1px -1px 12px 1px rgba(36, 41, 46, 0.31)
 }
 .backgroundImage {
     overflow: hidden;
@@ -93,7 +93,7 @@ main {
     height: 141.5px;
     margin: -101px -4px -4px 0;
     outline-style: none;
-    background-color: rgba(21,32,43,1.00);
+    background-color: #3D5466;
     border-color: rgb(21, 32, 43);
     border-width: 4px;
     border-style: solid;
@@ -243,13 +243,20 @@ main {
     background-color: rgba(224, 36, 94, 0.1);
     background-image: url(../img/like-red.png);
 }
+
 .comentContainer, .rtContainer , .favContainer , .shareContainer{
     display: flex;
     flex-direction: row;
     align-items: center;
     margin-bottom: 5px;
 }
-
+.comentContainer:active, .rtContainer:active , .favContainer:active , .shareContainer:active{
+    transform: scale(1.2);
+}
+.btn:focus{
+    outline: none;
+    box-shadow: none;
+}
 .comentContainer p, .rtContainer p, .favContainer p, .shareContainer p{
     font-size: 15px;
     margin: 0;
