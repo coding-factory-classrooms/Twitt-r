@@ -72,6 +72,13 @@ app.get('/db/getMessages', (req, res) => {
         res.send(data)
     })
 })
+// Get Message By Id
+app.post('/db/getMessageById', (req, res) => {
+    const id = req.body
+    Twert.findById(id)
+        .then((result) => { res.send(result)})
+        .catch((error) => { res.send(error)})
+})
 // Get name of the author of a twert
 app.post('/db/getAuthorName', (req, res)=>{
     Account.findById(req.body).then((user)=>{
@@ -209,13 +216,45 @@ app.post('/db/addALike', (req, res) => {
     })
     res.sendStatus(200)
 })
-// Add a retweet to a twert
+// Delete a like for a twert
+app.post('/db/deleteALike', (req, res) => {
+    const idTwert = JSON.parse(req.body).idTwert
+    const userId = JSON.parse(req.body).userId
+
+    Twert.findById(idTwert).then(async twert => {
+        for (let i = 0; i < twert.fav.length; i++) {
+            const rtByUser = twert.fav[i];
+            if(rtByUser == userId){
+                twert.fav.splice(i,1)
+            }
+        }
+        await twert.save()
+    })
+    res.sendStatus(200)
+})
+// Add a retwert to a twert
 app.post('/db/addARetweet', (req, res) => {
     const idTwert = JSON.parse(req.body).idTwert
     const userId = JSON.parse(req.body).userId
 
     Twert.findById(idTwert).then(async twert => {
         twert.retweet.push(userId)
+        await twert.save()
+    })
+    res.sendStatus(200)
+})
+// Delete a retwertfor a twert
+app.post('/db/deleteARetweet', (req, res) => {
+    const idTwert = JSON.parse(req.body).idTwert
+    const userId = JSON.parse(req.body).userId
+
+    Twert.findById(idTwert).then(async twert => {
+        for (let i = 0; i < twert.retweet.length; i++) {
+            const rtByUser = twert.retweet[i];
+            if(rtByUser == userId){
+                twert.retweet.splice(i,1)
+            }
+        }
         await twert.save()
     })
     res.sendStatus(200)

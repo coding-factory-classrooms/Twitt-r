@@ -1,3 +1,7 @@
+// Get user id from url
+const url = window.location.search
+const urlParams = new URLSearchParams(url)
+const userId = urlParams.get('id')
 const twertListContainer = document.querySelector('.twertListContainer')
 const accountId =  JSON.parse(localStorage.getItem('twitt-r-data')).userId
 
@@ -37,16 +41,32 @@ function displayTwert(twert, user) {
                     <p>${twert.comments.length}</p>
                 </div>
                 <div class="rtContainer">
-                    <button type="button" class="rtIcon btn" onclick="rtThisTwert('${twert._id}','${accountId}')"></button>
+                    <button type="button" class="rtIcon btn" onclick="toggleRt('${twert._id}','${accountId}')"></button>
                     <p>${twert.retweet.length}</p>
                 </div>
                 <div class="favContainer">
-                    <button type="button" class="favIcon btn" onclick="likeThisTwert('${twert._id}','${accountId}')"></button>
+                    <button type="button" class="favIcon btn" onclick="toggleLike('${twert._id}','${accountId}')"></button>
                     <p>${twert.fav.length}</p>
                 </div>
             </div>
         </div>
     `)
+    let allRetwertElements = document.querySelectorAll('.rtIcon')
+    for (let i = 0; i < allRetwertElements.length; i++) {
+        const retwertElement = allRetwertElements[i];
+        onclickContain = retwertElement.getAttribute('onclick')
+        if (onclickContain.includes(twert._id) && twert.retweet.includes(accountId)) {
+            retwertElement.style.backgroundImage = "url('../img/retweet-green.png')"
+        }
+    }
+    let allLikeElements = document.querySelectorAll('.favIcon')
+    for (let i = 0; i < allLikeElements.length; i++) {
+        const likeElement = allLikeElements[i];
+        onclickContain = likeElement.getAttribute('onclick')
+        if (onclickContain.includes(twert._id) && twert.fav.includes(accountId)) {
+            likeElement.style.backgroundImage = "url('../img/like-red.png')"
+        }
+    }
 }
 
 function getDiffTime(createdAt) {
@@ -82,25 +102,4 @@ async function getTwertAuthor(id) {
     .then(result => toReturn = result)
 
     return toReturn
-}
-
-async function rtThisTwert(idTwert, userId) {
-    const options = {
-        method: 'POST',
-        body: JSON.stringify({
-            idTwert: idTwert,
-            userId: userId,
-        })
-    }
-    await fetch('/db/addARetweet', options)
-}
-async function likeThisTwert(idTwert, userId) {
-    const options = {
-        method: 'POST',
-        body: JSON.stringify({
-            idTwert: idTwert,
-            userId: userId,
-        })
-    }
-    await fetch('/db/addALike', options)
 }
