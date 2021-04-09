@@ -101,6 +101,22 @@ async function setUserData() {
             </div>
         `)
         msgCounter++
+        let allRetwertElements = document.querySelectorAll('.rtIcon')
+        for (let i = 0; i < allRetwertElements.length; i++) {
+            const retwertElement = allRetwertElements[i];
+            onclickContain = retwertElement.getAttribute('onclick')
+            if (onclickContain.includes(twert._id) && twert.retweet.includes(accountId)) {
+                retwertElement.style.backgroundImage = "url('../img/retweet-green.png')"
+            }
+        }
+        let allLikeElements = document.querySelectorAll('.favIcon')
+        for (let i = 0; i < allLikeElements.length; i++) {
+            const likeElement = allLikeElements[i];
+            onclickContain = likeElement.getAttribute('onclick')
+            if (onclickContain.includes(twert._id) && twert.fav.includes(accountId)) {
+               likeElement.style.backgroundImage = "url('../img/like-red.png')"
+            }
+        }
     }
     // If user has no message, display the empty message
     if (msgCounter == 0) {
