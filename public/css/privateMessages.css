@@ -106,7 +106,7 @@ p {
 /* DISCUSSION */
 .discussionContainer {
     height: 100vh;
-    width: 62%;
+    width: 57%;
 }
 .discussionContainer .discussionTitle {
     justify-content: flex-start;

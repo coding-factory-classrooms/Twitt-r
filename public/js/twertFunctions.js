@@ -1,5 +1,7 @@
+//localStorage.setItem('twitt-r-data', JSON.stringify({userId: '606c930e33ef3f96a9a49326'}))
+
 setInterval(async () => {
-    await checkLikeRtComent(userId, accountId)
+    await checkLikeRtComent(accountId)
 }, 2000); 
 // Toggle Rt
 async function toggleRt(idTwert, profileId) {
@@ -31,6 +33,72 @@ async function rtThisTwert(idTwert, profileId) {
             retwertElement.style.backgroundImage = "url('../img/retweet-green.png')"
             retwertTextElement.innerHTML = twert.retweet.length + 1
         }
+    }
+}
+async function commentThisTwert(twertId, userId, authorName, authorId) {
+    const twertElement = document.getElementById(twertId)
+    const allCommentsForm = twertElement.querySelectorAll('.commentTwertContainer')
+
+    if (allCommentsForm.length == 0) {
+        document.getElementById(twertId).insertAdjacentHTML('beforeend', `
+            <div class="commentTwertContainer">
+                <input type="text" placeholder="Répondre à ${authorName}">
+                <div class="commentBtnContainer" onclick="saveComment('${twertId}', '${userId}', '${authorId}')">
+                    <p>Répondre</p>
+                </div>
+            </div>
+        `)
+        // If user hit Enter key, run the saveComment function
+        document.querySelector('.commentTwertContainer input').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') saveComment(twertId, userId, authorId)
+        })
+    } else {
+        const commentTwertForm = twertElement.querySelector('.commentTwertContainer')
+        twertElement.removeChild(commentTwertForm)
+    }
+}
+function goToTwertPage(id) {
+    window.location.href = `twert.html?id=${id}`
+}
+async function saveComment(twertId, userId, authorId) {
+    event.preventDefault()
+    const twertElement = document.getElementById(twertId)
+    const commentTwertForm = twertElement.querySelector('.commentTwertContainer')
+    const commentBtnContainer = commentTwertForm.querySelector('.commentBtnContainer')
+    const commentBody = twertElement.querySelector('.commentTwertContainer input').value
+
+    if (commentBody.length > 0) {
+        const data = {
+            userId: userId,
+            authorId : authorId,
+            twertId: twertId,
+            commentBody: commentBody
+        }
+        await fetch('/db/commentThisTwert', { method: 'POST', body: JSON.stringify(data) })
+        .then(response => response.json())
+        .then(comment => {
+            // Increment the number of comments
+            const totalCommentsElement = twertElement.querySelector('.interactContainer .comentContainer p')
+            const totalComments = parseInt(totalCommentsElement.innerHTML)
+            totalCommentsElement.innerHTML = totalComments + 1
+
+            // If user isn't on the twert page, display animation
+            if (window.location.href.indexOf('twert.html') == -1) {
+                commentBtnContainer.removeChild(commentBtnContainer.querySelector('p'))
+                commentBtnContainer.insertAdjacentHTML('afterbegin', `
+                    <lottie-player src='../img/checkmark-animation.json' autoplay></lottie-player>
+                `)
+                setTimeout(() => {
+                    // Remove the comment form
+                    twertElement.removeChild(commentTwertForm)
+                }, 1750)
+            }
+            // If user is on the twert page, don't display the animation but display the comment
+            else {
+                twertElement.removeChild(commentTwertForm)
+                displayComment(comment)
+            }
+        })
     }
 }
 // Delete a retwert of a twert
@@ -113,7 +181,7 @@ async function deleteLikeThisTwert(idTwert, profileId) {
     }
 }
 // Check if the count of like or of retwert or of comment have changed
-async function checkLikeRtComent(id, profileId){
+async function checkLikeRtComent(profileId){
     const twertList = await getAllMessages()
     let allLikeTextElements = document.querySelectorAll('.favContainer p')
     let allLikeElements = document.querySelectorAll('.favIcon')
@@ -147,7 +215,20 @@ async function checkLikeRtComent(id, profileId){
         }
     }
 }
+function getDiffTime(createdAt) {
+    const date = new Date(createdAt)
+    const today = new Date()
+    
+    const diffMilli = today - date
+    const diffMinutes = Math.floor((diffMilli % (1000 * 60 * 60)) / (1000 * 60))
+    const diffHours = Math.floor((diffMilli % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toFixed(0)
+    const diffDays = Math.floor(((diffMilli % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)) / 24).toFixed(0)
 
+    if (diffDays > 0) return `Il y a ${diffDays} jour${diffDays > 1 ? 's' : ''}`
+    else if (diffHours > 0) return `Il y a ${diffHours} heure${diffHours > 1 ? 's' : ''}`
+    else if (diffMinutes > 0) return `Il y a ${diffMinutes} minute${diffMinutes > 1 ? 's' : ''}`
+    else return 'à l\'instant'
+}
 async function getMesageById(id) {
     let twert
     const options = {
