@@ -65,16 +65,16 @@ async function displayTwertProfile() {
     for (let i = 0; i < allTwertsProfile.length; i++) {
         const twert = allTwertsProfile[i];
         twertsContainerElement.insertAdjacentHTML('afterbegin', `
-            <div class="twertCard">
-                <div class="twertUserAndBody">
+            <div class="twertCard" id="${twert._id}">
+                <div class="twertUserAndBody" onclick="goToTwertPage('${twert._id}')">
                     <div class="ppTwertContainer">
                         <div class="ppTwert">
-                            <img src="${user.profilImg}" alt="profilImage">
+                            <a href="profil.html?id=${user._id}"><img src="${user.profilImg}" alt="profilImage"></a>
                         </div>
                     </div>
                     <div class="twertInfoContainer">
                         <div class="twertInfo">
-                            <p class="username">${user.username}</p>
+                            <a href="profil.html?id=${user._id}"><p class="username">${user.username}</p></a>
                             <p class="diffTime">${getDiffTime(twert.createdAt)} </p>
                         </div>
                         <div class="twertContent">
@@ -84,7 +84,7 @@ async function displayTwertProfile() {
                 </div>
                 <div class="interactContainer">
                     <div class="comentContainer">
-                        <button type="button" class="comentIcon btn" onclick="commentThisTwert('${twert._id}','${accountId}')"></button>
+                        <button type="button" class="comentIcon btn" onclick="commentThisTwert('${twert._id}','${accountId}', '${user.username}', '${user._id}')"></button>
                         <p>${twert.comments.length}</p>
                     </div>
                     <div class="rtContainer">

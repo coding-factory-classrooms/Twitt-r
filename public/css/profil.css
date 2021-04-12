@@ -16,9 +16,11 @@ main {
 }
 .profilInfoContainer {
     height: 100%;
-    width: 70% ;
+    width: 50%;
+    min-width: 500px;
     display: flex;
     flex-direction: column;
+    padding: 20px 0;
 }
 .profilHeader {
     display: flex;
@@ -26,7 +28,6 @@ main {
     justify-content: flex-start;
     align-items: center;
     height: 53px;
-    border-bottom: 1px solid rgb(56, 68, 77);
     padding: 0 16px;
 }
 .usernameAndTwerts {
@@ -70,9 +71,6 @@ main {
     color: rgb(136, 153, 166);
     font-weight: 400;
     margin-right: 20px;
-}
-.backgroundAndDetailsProfil{
-    box-shadow: 1px -1px 12px 1px rgba(36, 41, 46, 0.31)
 }
 .backgroundImage {
     overflow: hidden;
@@ -130,7 +128,7 @@ main {
     display: flex;
     flex-direction: column;
     height: 25px;
-    margin: 4px 0 12px 0;
+    margin: 15px 0;
 }
 .descriptionProfil {
     margin-bottom: 12px;
@@ -143,7 +141,6 @@ main {
     height: 52px;
     display: flex;
     flex-direction: row;
-    border-bottom:1px solid rgb(56, 68, 77);
 }
 .twertsOfProfilBtn {
     width: 50%;
@@ -167,9 +164,27 @@ main {
     color: rgb(29, 161, 242);
     background-color: rgba(29, 161, 242, 0.1);
 }
+.emptyMsgAlert {
+    opacity: .5;
+    font-size: 13px;
+    text-align: center;
+    margin-top: 15vh;
+    display: none;
+}
+
+/* TWERT */
 .twertCard {
-    margin: 9px 0; 
-    box-shadow: 1px -1px 12px 1px rgba(36, 41, 46, 0.31)
+    margin: 15px 0; 
+    box-shadow: 0px 0px 12px 1px rgb(9, 9, 10, .3);
+    border: 1px solid rgba(29, 161, 242, .1);
+    border-radius: 10px;
+    padding: 20px 20px 0 20px;
+    cursor: pointer;
+}
+.diffTime {
+    font-size: 12px;
+    opacity: .3;
+    z-index: -1;
 }
 .twertUserAndBody {
     display: flex;
@@ -180,10 +195,14 @@ main {
 }
 .twertInfo {
     display: flex;
-    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
 }
 .twertInfo .username{
     margin-right: 20px;
+}
+.twertInfo a {
+    text-decoration: none;
 }
 .ppTwert{
     width: 48px;
@@ -196,6 +215,9 @@ main {
     border-radius: 9999px;
     overflow: hidden;
     align-self: flex-end;
+}
+.twertContent .body {
+    text-align: justify;
 }
 .ppTwert img {
     width: 100%;
@@ -266,6 +288,44 @@ main {
 .twertsOfProfilBtn:focus, .twertsLikeOfProfilBtn:focus {
     color: rgb(29, 161, 242);
     border-bottom: 2px solid rgb(29, 161, 242);
+}
+.commentTwertContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 7px 0 20px 0;
+}
+.commentTwertContainer input {
+    width: -webkit-fill-available;
+    padding: 10px 20px;
+    background-color: #232e3a;
+    outline: none;
+    border: none;
+    border-radius: 100px;
+    color: white;
+    font-size: 14px;
+}
+.commentTwertContainer .commentBtnContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 130px;
+    height: 35px;
+    background-color: rgb(29, 161, 242);
+    color: white;
+    margin-top: 10px;
+    border-radius: 100px; 
+    align-self: flex-end;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 15px;
+    overflow: hidden;
+}
+.commentTwertContainer .commentBtnContainer p {
+    margin: 0;
+}
+.commentTwertContainer lottie-player {
+    height: 80px;
 }
 
 /* EDIT PROFIL FORM */

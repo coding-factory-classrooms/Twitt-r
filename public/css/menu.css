@@ -1,5 +1,5 @@
 .menuContainer {
-    width: 15%;
+    width: 20%;
     min-width: 250px;
     height: 100vh;
     display: flex;
@@ -12,7 +12,7 @@
     z-index: +1;
 }
 .backMenu {
-    width: 15%;
+    width: 20%;
     min-width: 250px;
     display: flex;
     align-items: center;

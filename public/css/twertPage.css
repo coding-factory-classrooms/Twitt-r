@@ -3,79 +3,36 @@ body {
     font-family: 'poppins', sans-serif;
     background-color: rgb(21,32,43);
     color: white;
+    height: 100vh;
+    display: flex;
+}
+p {
+    margin: 0;
+}
+.backMenu {
+    width: 30% !important;
 }
 .menuContainer {
     border-right: none !important;
 }
 
-.col-sm-5{
-    border: 1px solid rgb(58, 68, 77);
-    border-top:0px ;
-    padding-right: 0px;
-    padding-left: 0px;
+.twertContainer {
+    width: 40%;
+    padding-top: 10vh;
 }
-#principalHome{
-    height: 1000px;
-}
-#accueil{
-    width: 100%;
-    border-bottom: 1px solid rgb(58, 68, 77);
-}
-#accueil p {
-    margin-top: 2%;
-    margin-left: 2%;
-    font-size: 20px;
-    font-weight: 800;
-}
-#msgArea{
-    background-color: rgb(21,32,43);
-    width: 94%;
-    color: white;
-    border: none;
-    height: 85%;
-
-    border-bottom: 1px solid rgb(58, 68, 77);
-    margin-right: 20px;
-}
-::placeholder{
-    color: 	gray;
-}
-.validMsgBtn{
-    color: white;
-    background-color: rgb(29, 161, 242);
-    border: none;
-    border-radius: 20px 20px;
-    height: 4%;
-    width: 20%;
-}
-#topHome{
-    border-bottom: 1px solid rgb(58, 68, 77);
-    height: 175px;
-    width: 100%;
-    margin: 0;
-}
-#msg {
-    height: 70%;
-    margin-top: 15px;
-}
-
-/* twerts */
-.twertListContainer {
-    width: 70%;
-    height: fit-content;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+/* TWERT */
+.twertCommentsContainer {
     padding-bottom: 5vh;
 }
-
-.twertCard {
-    width: 100%;
-    margin: 9px 0; 
+.firstTwert {
     box-shadow: 0px 0px 12px 1px rgb(9, 9, 10, .3);
     border: 1px solid rgba(29, 161, 242, .1);
     border-radius: 10px;
-    padding: 20px 20px 0 20px;
+    margin-bottom: 5vh;
+}
+.twert {
+    width: 96%;
+    padding: 4% 2% 0 2%;
 }
 .twertUserAndBody {
     display: flex;
@@ -92,6 +49,10 @@ body {
 .twertInfo .username{
     margin-right: 20px;
     font-weight: 500;
+}
+.twertInfo a {
+    color: white;
+    text-decoration: none;
 }
 .ppTwert{
     width: 48px;
@@ -178,13 +139,37 @@ body {
     margin: 0;
     margin-left: 15px;
 }
-
-.emptyTwertMsg {
-    display: none;
-    font-size: 13px;
-    opacity: .5;
-    margin-top: 40vh;
+.commentTwertContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 7px 0 15px 0;
 }
-.emptyTwertMsg span {
-    color: rgb(29, 161, 242);
+.commentTwertContainer input {
+    width: -webkit-fill-available;
+    padding: 12px 20px;
+    background-color: #232e3a;
+    outline: none;
+    border: none;
+    border-radius: 100px;
+    color: white;
+}
+.commentTwertContainer .commentBtnContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 130px;
+    height: 35px;
+    background-color: rgb(29, 161, 242);
+    color: white;
+    margin-top: 10px;
+    border-radius: 100px; 
+    align-self: flex-end;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 15px;
+    overflow: hidden;
+}
+.commentTwertContainer lottie-player {
+    height: 80px;
 }
