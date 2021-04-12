@@ -285,10 +285,6 @@ main {
     margin: 0;
     margin-left: 15px;
 }
-.twertsOfProfilBtn:focus, .twertsLikeOfProfilBtn:focus {
-    color: rgb(29, 161, 242);
-    border-bottom: 2px solid rgb(29, 161, 242);
-}
 .commentTwertContainer {
     display: flex;
     flex-direction: column;

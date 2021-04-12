@@ -9,9 +9,7 @@ const followAndFollowersElements  = document.querySelectorAll('.counterFollow sp
 const twertsContainerElement = document.querySelector('.twertsContainer')
 
 setUserData()
-function test(){
-    console.log("Test");
-}
+
 async function setUserData() {  
 
     // Get user profile from id
@@ -52,6 +50,8 @@ async function setUserData() {
 }
 // Display all the message for this profile
 async function displayTwertProfile() {
+    $('.twertsOfProfilBtn').css({"color": "rgb(29, 161, 242)" , "border-bottom": "2px solid rgb(29, 161, 242)"})
+    $('.twertsLikeOfProfilBtn').css({"color": "rgb(136, 153, 166)" , "border-bottom": "0"})
     const twertsElements = document.querySelectorAll('.twertsContainer .twertCard')
     // Get user profile from id
     let user = await getUser(userId)
@@ -123,6 +123,8 @@ async function displayTwertProfile() {
 }
 // Display all the message that the profile liked
 async function displayLikedTwertProfile() {
+    $('.twertsOfProfilBtn').css({"color": "rgb(136, 153, 166)" , "border-bottom": "0"})
+    $('.twertsLikeOfProfilBtn').css({"color": "rgb(29, 161, 242)" , "border-bottom": "2px solid rgb(29, 161, 242)"})
     const twertsElements = document.querySelectorAll('.twertsContainer .twertCard')
     // Get user profile from id
     let user = await getUser(userId)
@@ -137,11 +139,9 @@ async function displayLikedTwertProfile() {
         const twert = allTwerts[i];
         if (twert.fav.includes(userId)) {
             let userLiked = await getUser(twert.authorId)
-            console.log(twert.authorId);
-            console.log(userLiked);
             twertsContainerElement.insertAdjacentHTML('afterbegin', `
-            <div class="twertCard">
-                <div class="twertUserAndBody">
+            <div class="twertCard" id="${twert._id}">
+                <div class="twertUserAndBody" onclick="goToTwertPage('${twert._id}')">
                     <div class="ppTwertContainer">
                         <div class="ppTwert">
                             <img src="${userLiked.profilImg}" alt="profilImage">
