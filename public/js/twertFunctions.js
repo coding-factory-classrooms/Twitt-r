@@ -40,7 +40,8 @@ async function commentThisTwert(twertId, userId, authorName, authorId) {
     const allCommentsForm = twertElement.querySelectorAll('.commentTwertContainer')
 
     if (allCommentsForm.length == 0) {
-        document.getElementById(twertId).insertAdjacentHTML('beforeend', `
+        const twertElement = document.getElementById(twertId)
+        twertElement.insertAdjacentHTML('beforeend', `
             <div class="commentTwertContainer">
                 <input type="text" placeholder="Répondre à ${authorName}">
                 <div class="commentBtnContainer" onclick="saveComment('${twertId}', '${userId}', '${authorId}')">
@@ -48,6 +49,7 @@ async function commentThisTwert(twertId, userId, authorName, authorId) {
                 </div>
             </div>
         `)
+        twertElement.querySelector('input').select()
         // If user hit Enter key, run the saveComment function
         document.querySelector('.commentTwertContainer input').addEventListener('keypress', (e) => {
             if (e.key === 'Enter') saveComment(twertId, userId, authorId)
@@ -81,9 +83,18 @@ async function saveComment(twertId, userId, authorId) {
             const totalCommentsElement = twertElement.querySelector('.interactContainer .comentContainer p')
             const totalComments = parseInt(totalCommentsElement.innerHTML)
             totalCommentsElement.innerHTML = totalComments + 1
-
-            // If user isn't on the twert page, display animation
-            if (window.location.href.indexOf('twert.html') == -1) {
+            
+            // If user is on the twert page, don't display the animation but display the comment
+            if (window.location.href.indexOf('twert.html') != -1) {
+                twertElement.removeChild(commentTwertForm)
+                displayComment(comment)
+            }
+            // If user is on the profil page, don't display the animation
+            else if (window.location.href.indexOf('profil.html') != -1) {
+                twertElement.removeChild(commentTwertForm)
+            }
+            // If user is on the explore page, display animation
+            else {
                 commentBtnContainer.removeChild(commentBtnContainer.querySelector('p'))
                 commentBtnContainer.insertAdjacentHTML('afterbegin', `
                     <lottie-player src='../img/checkmark-animation.json' autoplay></lottie-player>
@@ -91,12 +102,7 @@ async function saveComment(twertId, userId, authorId) {
                 setTimeout(() => {
                     // Remove the comment form
                     twertElement.removeChild(commentTwertForm)
-                }, 1750)
-            }
-            // If user is on the twert page, don't display the animation but display the comment
-            else {
-                twertElement.removeChild(commentTwertForm)
-                displayComment(comment)
+                }, 1500)
             }
         })
     }
@@ -219,10 +225,10 @@ function getDiffTime(createdAt) {
     const date = new Date(createdAt)
     const today = new Date()
     
-    const diffMilli = today - date
-    const diffMinutes = Math.floor((diffMilli % (1000 * 60 * 60)) / (1000 * 60))
-    const diffHours = Math.floor((diffMilli % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toFixed(0)
-    const diffDays = Math.floor(((diffMilli % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)) / 24).toFixed(0)
+    const diffMs = Math.abs(today - date)
+    const diffMinutes = Math.round(diffMs / (1000 * 60))
+    const diffHours = Math.round(diffMs / (1000 * 60 * 60))
+    const diffDays = Math.round(diffMs / (1000 * 60 * 60 * 24))
 
     if (diffDays > 0) return `Il y a ${diffDays} jour${diffDays > 1 ? 's' : ''}`
     else if (diffHours > 0) return `Il y a ${diffHours} heure${diffHours > 1 ? 's' : ''}`
