@@ -40,7 +40,7 @@
         <div class="profilInfoContainer">
             <div class="profilHeader">
                 <div class="backArrow">
-                    <button type="buttton" class="clickableCircleArrow btn" ><img src="../img/leftArrow.png" alt="backArrow"></button>
+                    <button type="buttton" class="clickableCircleArrow btn"><img src="../img/leftArrow.png" alt="backArrow"></button>
                 </div>
                 <div class="usernameAndTwerts">
                     <span class="username"></span>
@@ -51,13 +51,15 @@
                 </div>
             </div>
             <div class="backgroundAndDetailsProfil">
-                <div class="backgroundImage"></div>
+                <div class="backgroundImage">
+                    <img src="" alt="Image d'arrière plan">
+                </div>
                 <div class="detailsProfil">
                     <div class="firstLineWithButtons">
                         <div class="profilImage">
-                            <img src="" alt="profilImage">
+                            <img src="" alt="Image de profil">
                         </div>
-                        <button type="button" class="followBtn btn"> Suivre </button>
+                        <button type="button" class="profilMainBtn btn"></button>
                     </div>
                     <div class="usernameUnderImage">
                         <span class="username"></span>
@@ -78,10 +80,32 @@
                 
             </div>
             <div class="twertsContainer">
-
+                <p class="emptyMsgAlert">Aucun twert</p>
             </div>
         </div>
     </main>
+
+    <div class="editProfilForm">
+        <form>
+            <img src="../img/cross.png" alt="Fermer" onclick="document.querySelector('.editProfilForm').style.display = 'none'">
+            <div class="formGroup">
+                <label>Biographie</label>
+                <input type="text" placeholder="Décrivez-vous">
+            </div>
+            <div class="formGroup">
+                <label>Image de profil</label>
+                <input type="text" placeholder="url">
+            </div>
+            <p class="wrongProfilImgLinkMsg">URL invalide</p>
+            <div class="formGroup">
+                <label>Image d'arrière plan</label>
+                <input type="text" placeholder="url">
+            </div>
+            <p class="wrongBackgroundProfilImgLinkMsg">URL invalide</p>
+            <button>Mettre à jour</button>
+        </form>
+    </div>
+
 </body>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
@@ -89,7 +113,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0.0/jquery.counterup.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/scrollReveal.js/4.0.9/scrollreveal.min.js"></script>
 
+    <script src="../js/twertFunctions.js"></script>
     <script src="../js/profil/profilData.js"></script>
-    <script src="../js/profil/profil.js"></script>
+    <script src="../js/profil/followProfile.js"></script>
+    <script src="../js/profil/editProfil.js"></script>
     <script src="../js/menu.js"></script>
 </html>

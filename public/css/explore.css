@@ -35,14 +35,13 @@ p {
 }
 /* TWERT LIST */
 .twertListContainer {
-    width: 70%;
+    width: 60%;
     height: fit-content;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding-bottom: 5vh;
 }
-
 .twertCard {
     width: 60%;
     margin: 9px 0; 
@@ -50,6 +49,7 @@ p {
     border: 1px solid rgba(29, 161, 242, .1);
     border-radius: 10px;
     padding: 20px 20px 0 20px;
+    cursor: pointer;
 }
 .twertUserAndBody {
     display: flex;
@@ -66,6 +66,10 @@ p {
 .twertInfo .username{
     margin-right: 20px;
     font-weight: 500;
+}
+.twertInfo a {
+    color: white;
+    text-decoration: none;
 }
 .ppTwert{
     width: 48px;
@@ -162,14 +166,48 @@ p {
 .emptyTwertMsg span {
     color: rgb(29, 161, 242);
 }
+.commentTwertContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 7px 0 20px 0;
+}
+.commentTwertContainer input {
+    width: -webkit-fill-available;
+    padding: 12px 20px;
+    background-color: #232e3a;
+    outline: none;
+    border: none;
+    border-radius: 100px;
+    color: white;
+}
+.commentTwertContainer .commentBtnContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 130px;
+    height: 35px;
+    background-color: rgb(29, 161, 242);
+    color: white;
+    margin-top: 10px;
+    border-radius: 100px; 
+    align-self: flex-end;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 15px;
+    overflow: hidden;
+}
+.commentTwertContainer lottie-player {
+    height: 80px;
+}
 
 /* TRENDS */
 .exploreTrendsContainer {
-    width: 15%;
+    width: 20%;
     min-width: 200px;
 }
 .exploreTrends {
-    width: 15%;
+    width: 20%;
     min-width: 200px;
     height: 100vh;
     position: fixed;
@@ -187,7 +225,7 @@ p {
 .exploreTitleContainer {
     display: flex;
     align-items: center;
-    padding-left: 20%;
+    padding-left: 25%;
 }
 .exploreTitleContainer .exploreTrendTitle {
     font-size: 22px;
@@ -198,13 +236,12 @@ p {
     width: 22px;
     margin-left: 10px;
     margin-bottom: 7px;
-    
 }
 .exploreTrends li {
     width: 100%;
     list-style: none;
     padding: 12px 0;
-    padding-left: 20%;
+    padding-left: 25%;
     margin: 5px 0;
     display: flex;
     flex-direction: column;

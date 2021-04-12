@@ -28,7 +28,10 @@ app.post('/db/createAccount', (req, res) => {
         username: userData.username,
         email: userData.email,
         password: userData.password,
+        profilImg: 'https://images.squarespace-cdn.com/content/v1/5dd67ab347b52c5c5984ee18/1593518269650-UMHG1MMDSCRWUSS0SKF1/ke17ZwdGBToddI8pDm48kAJXj4ETMmaoAkiYY4JFQXlZw-zPPgdn4jUwVcJE1ZvWQUxwkmyExglNqGp0IvTJZUJFbgE-7XRK3dMEBRBhUpzf8daNC-MxxGfY8vPcOHHcwhdOGrzXvqNaZna-CxAalzRvs09ahw_N0yOE2Vlg1XM/user-avatar-icon-sign-symbol-vector-4001945.jpg',
+        backgroundProfilImg: 'https://www.schemecolor.com/wallpaper?i=4334&mobile',
         privateMessages: [],
+        description: '',
         twert: [], 
         favTwert: [],
         retweetTwert: [],
@@ -72,12 +75,100 @@ app.get('/db/getMessages', (req, res) => {
         res.send(data)
     })
 })
+// Get the list of follow of a user
+app.post('/db/getFollowOfUser', (req, res) => {
+    Account.findById(req.body).then(async user => {
+        res.send(user.follow)
+    })
+})
+// Get the list of followers of a user
+app.post('/db/getFollowersOfUser', (req, res) => {
+    Account.findById(req.body).then(async user => {
+        res.send(user.followers)
+    })
+})
+// Follow a user 
+app.post('/db/followProfil', (req, res) => {
+    const data = JSON.parse(req.body)
+
+    // Add the profilId to follow array of the user
+    Account.findById(data.userId).then(async user => {
+        user.follow.push(data.profilId)
+        await user.save()
+    })
+    // Add the userId to followers array of the profil user
+    Account.findById(data.profilId).then(async user => {
+        user.followers.push(data.userId)
+        await user.save()
+    })
+    res.sendStatus(200)
+})
+// Unfollow a user 
+app.post('/db/unfollowProfil', (req, res) => {
+    const data = JSON.parse(req.body)
+
+    // Remove the profilId from follow array of the user
+    Account.findById(data.userId).then(async user => {
+        for (let i = 0; i < user.follow.length; i++) {
+            if (user.follow[i] == data.profilId) {
+                user.follow.splice(i, 1)
+                await user.save()
+            }
+        }
+    })
+    // Remove the userId from followers array of the profil user
+    Account.findById(data.profilId).then(async user => {
+        for (let i = 0; i < user.followers.length; i++) {
+            if (user.followers[i] == data.userId) {
+                user.followers.splice(i, 1)
+                await user.save()
+            }
+        }
+    })
+    res.sendStatus(200)
+})
+// Update biography of user 
+app.post('/db/updateBiography', (req, res) => {
+    const data = JSON.parse(req.body)
+
+    Account.findById(data.userId).then(async user => {
+        user.description = data.body
+        await user.save()
+    })
+    res.sendStatus(200)
+})
+// Update profil image of user 
+app.post('/db/updateProfilImg', (req, res) => {
+    const data = JSON.parse(req.body)
+
+    Account.findById(data.userId).then(async user => {
+        user.profilImg = data.body
+        await user.save()
+    })
+    res.sendStatus(200)
+})
+// Update background profil image of user 
+app.post('/db/updateBackgroundProfilImg', (req, res) => {
+    const data = JSON.parse(req.body)
+
+    Account.findById(data.userId).then(async user => {
+        user.backgroundProfilImg = data.body
+        await user.save()
+    })
+    res.sendStatus(200)
+})
 // Get Message By Id
 app.post('/db/getMessageById', (req, res) => {
     const id = req.body
     Twert.findById(id)
         .then((result) => { res.send(result)})
         .catch((error) => { res.send(error)})
+})
+// Get all comments of a twert
+app.post('/db/getAllCommentsOfTwert', (req, res) => {
+    Twert.findById(req.body).then(twert => {
+        res.send(twert.comments)
+    })
 })
 // Get name of the author of a twert
 app.post('/db/getAuthorName', (req, res)=>{
@@ -258,4 +349,34 @@ app.post('/db/deleteARetweet', (req, res) => {
         await twert.save()
     })
     res.sendStatus(200)
+})
+// Add a comment to a twert
+app.post('/db/commentThisTwert', async (req, res) => {
+    const data = JSON.parse(req.body)
+
+    // Add the comment to the user profil
+    Account.findById(data.userId).then(async user => {
+        const newComment = {
+            twertId: data.twertId,
+            commentBody: data.commentBody
+        }
+        user.commentTwert.push(newComment)
+        await user.save()
+    })
+
+    // Add the comment to the twert's comments
+    const author = await Account.findById(data.userId)
+
+    Twert.findById(data.twertId).then(async twert => {
+        const newComment = {
+            authorId: data.userId,
+            authorName: author.username,
+            authorProfileImg: author.profilImg,
+            commentBody: data.commentBody,
+            createdAt: new Date()
+        }
+        twert.comments.push(newComment)
+        await twert.save()
+        res.send(newComment)
+    })
 })
