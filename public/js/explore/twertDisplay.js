@@ -15,7 +15,6 @@ async function displayAllTwerts() {
         displayTwert(twert, user)
     })
 }
-
 async function displayTwert(twert, user) {
     twertListContainer.insertAdjacentHTML('afterbegin', `
         <div class="twertCard" id="${twert._id}">

@@ -53,17 +53,17 @@ function displayPrivateDiscussion(discussion) {
 }
 function displayDiffTime(lastMsgTime) {
     // Return the difference time between the last message sent and now
-    const lastMsgDate = new Date(lastMsgTime)
-    const now = new Date()
+    const date = new Date(lastMsgTime)
+    const today = new Date()
+    
+    const diffMs = Math.abs(today - date)
+    const diffMinutes = Math.round(diffMs / (1000 * 60))
+    const diffHours = Math.round(diffMs / (1000 * 60 * 60))
+    const diffDays = Math.round(diffMs / (1000 * 60 * 60 * 24))
 
-    const diffMilli = now - lastMsgDate
-    const diffMinutes = Math.floor((diffMilli % (1000 * 60 * 60)) / (1000 * 60))
-    const diffHours = Math.floor((diffMilli % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toFixed(0)
-    const diffDays = Math.floor(((diffMilli % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)) / 24).toFixed(0)
-
-    if (diffDays > 0) return diffDays + 'j'
-    else if (diffHours > 0) return diffHours + 'h'
-    else if (diffMinutes > 0) return diffMinutes + 'm'
+    if (diffDays > 0) return `${diffDays}j`
+    else if (diffHours > 0) return `${diffHours}h`
+    else if (diffMinutes > 0) return `${diffMinutes}m`
     else return 'à l\'instant'
 }
 async function getAllPrivateDiscussions() {
