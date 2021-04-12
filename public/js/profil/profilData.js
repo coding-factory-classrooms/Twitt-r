@@ -150,7 +150,7 @@ async function displayLikedTwertProfile() {
                     <div class="twertInfoContainer">
                         <div class="twertInfo">
                             <p class="username">${twert.authorName}</p>
-                            <p class="diffTime">${getDiffTime(twert.createdAt)} </p>
+                            <p class="diffTime">${getDiffTime(twert.createdAt)}</p>
                         </div>
                         <div class="twertContent">
                             <p class="body">${twert.body}</p>
@@ -242,15 +242,14 @@ async function getAllMessages() {
         .then((data) => messages = data)
     return messages
 }
-
 function getDiffTime(createdAt) {
     const date = new Date(createdAt)
     const today = new Date()
     
-    const diffMilli = today - date
-    const diffMinutes = Math.floor((diffMilli % (1000 * 60 * 60)) / (1000 * 60))
-    const diffHours = Math.floor((diffMilli % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toFixed(0)
-    const diffDays = Math.floor(((diffMilli % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)) / 24).toFixed(0)
+    const diffMs = Math.abs(today - date)
+    const diffMinutes = Math.round(diffMs / (1000 * 60))
+    const diffHours = Math.round(diffMs / (1000 * 60 * 60))
+    const diffDays = Math.round(diffMs / (1000 * 60 * 60 * 24))
 
     if (diffDays > 0) return `Il y a ${diffDays} jour${diffDays > 1 ? 's' : ''}`
     else if (diffHours > 0) return `Il y a ${diffHours} heure${diffHours > 1 ? 's' : ''}`
