@@ -174,7 +174,7 @@ app.post('/db/getAuthorName', (req, res)=>{
     })
 })
 // Send twert to bdd
-app.post('/db/sendMsg', (req, res)=>{
+app.post('/db/sendMsg', async (req, res)=>{
     let msg = JSON.parse(req.body)
     const twert = {
         authorId: msg.authorId,
@@ -185,7 +185,14 @@ app.post('/db/sendMsg', (req, res)=>{
         comments: []
     }
     newTwert = new Twert(twert)
-    newTwert.save()
+    await newTwert.save()
+    newTwertId = newTwert._id
+
+    // Save twert in user profil
+    Account.findById(msg.authorId).then(async user => {
+        user.twert.push(newTwertId)
+        await user.save()
+    })
 })
 // Create a new private discussion
 app.post('/db/newPrivateDiscussion', async (req, res) => {
@@ -390,3 +397,41 @@ app.post('/db/commentThisTwert', async (req, res) => {
         res.send(newComment)
     })
 })
+// Get twerts ans retwerts of all followed profil of the user
+app.post('/db/getFollowedProfilsActivity', (req, res) => {
+    Account.findById(req.body).then(async user => {
+        // Get all followed users
+        const followList = user.follow
+        let followedProfilsActivity = []
+
+        await fillFollowedProfilsActivityArray(followList, followedProfilsActivity).then(() => {
+            // Sort the array in function of the date of the twert/retwert
+            const newArray = followedProfilsActivity.sort((a, b) => a.createdAt - b.createdAt)
+            res.send(newArray)
+        })
+    })
+})
+async function fillFollowedProfilsActivityArray(followList, followedProfilsActivity) {
+    for(let i = 0; i < followList.length; i++) {
+        const userId = followList[i];
+        // Fill the followedProfilsActivity array with the activity of the followed user
+        await Account.findById(userId).then(async user => {
+            // Push all user's twert
+            for (let j = 0; j < user.twert.length; j++) {
+                const twert = await Twert.findById(user.twert[j])
+                twert.isRetwert = false,
+                
+                followedProfilsActivity.push(twert)
+            }
+            // Push all user's retwert
+            for (let j = 0; j < user.retweetTwert.length; j++) {
+                const retwert = await Twert.findById(user.retweetTwert[j])
+                retwert.isRetwert = true,
+                retwert.retwertAuthor = user.username
+                retwert.retwertAuthorId = user._id
+
+                followedProfilsActivity.push(retwert)
+            }
+        })
+    }
+}

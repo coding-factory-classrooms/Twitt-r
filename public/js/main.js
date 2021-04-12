@@ -3,56 +3,23 @@
 // }
 // localStorage.setItem('twitt-r-data', JSON.stringify(data))
 
-async function validTextArea(){
-    let authorId =  JSON.parse(localStorage.getItem('twitt-r-data')).userId
-    let authorName = await getAuthorName(authorId);
-    let msg = document.querySelector('#msgArea').value
-
-    let messageData = {
-        authorId: authorId,
-        authorName: authorName,
-        body: msg
-    }
-
-    console.log(messageData);
-    let sendData={
-        method: 'POST',
-        body: JSON.stringify(messageData)
-    }
-    await fetch ('/db/sendMsg', sendData)
-}
-
-async function getAuthorName(authorId){
-    let options ={
-        method: 'POST',
-        body: authorId
-    }
-    let x;
-    await fetch ('/db/getAuthorName', options)
-    .then(response=>response.text())
-    .then(username=>{
-        x=username;
-    })
-    return x
-}
-
-async function getMesageById(id) {
-    let twert
-    const options = {
-        method: 'POST',
-        body: id
-    }
-    await fetch('/db/getMessageById', options)
-        .then(response => response.json())
-        .then((data) => twert = data )
-    return twert
-}
-
-
 const twertListContainer = document.querySelector('.twertListContainer')
 const accountId =  JSON.parse(localStorage.getItem('twitt-r-data')).userId
 
-displayAllTwerts()
+displayTimeLine()
+
+// Set the profil img and the link to the profil page
+setProfilImgAndLink()
+
+async function displayTimeLine() {
+    // Get twerts ans retwerts of all followed profil of the user
+    const followedProfilsActivity = await fetch('/db/getFollowedProfilsActivity', { method: 'POST', body: accountId }).then(response => response.json())
+
+    followedProfilsActivity.forEach(async twert => {
+        const user = await getTwertAuthor(twert.authorId)
+        displayTwert(twert, user)
+    })
+}
 
 async function displayAllTwerts() {
     const twertList = await getAllTwerts()
@@ -62,11 +29,16 @@ async function displayAllTwerts() {
         displayTwert(twert, user)
     })
 }
-
 function displayTwert(twert, user) {
     bottomHome.insertAdjacentHTML('afterbegin', `
-        <div class="twertCard">
-            <div class="twertUserAndBody">
+        <div class="twertCard" id="${twert._id}">
+            ${twert.isRetwert ? `
+                <div class="retwertMsgContainer">
+                    <img src="../img/retweet2.png" alt="retwerter">
+                    <p class="retwertMsg"><a href="profil.html?id=${twert.retwertAuthorId}">${twert.retwertAuthor}</a> a retwerté</p>
+                </div>
+            ` : ''}
+            <div class="twertUserAndBody" onclick="goToTwertPage('${twert._id}')">
                 <div class="ppTwertContainer">
                     <div class="ppTwert">
                         <img src="${user.profilImg}" alt="profilImage">
@@ -99,22 +71,55 @@ function displayTwert(twert, user) {
         </div>
     `)
 }
+async function setProfilImgAndLink() {
+    // Set the profil img
+    const user = await getTwertAuthor(accountId)
+    document.querySelector('#topHome img').src = user.profilImg 
 
-function getDiffTime(createdAt) {
-    const date = new Date(createdAt)
-    const today = new Date()
-    
-    const diffMilli = today - date
-    const diffMinutes = Math.floor((diffMilli % (1000 * 60 * 60)) / (1000 * 60))
-    const diffHours = Math.floor((diffMilli % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toFixed(0)
-    const diffDays = Math.floor(((diffMilli % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)) / 24).toFixed(0)
-
-    if (diffDays > 0) return `Il y a ${diffDays} jour${diffDays > 1 ? 's' : ''}`
-    else if (diffHours > 0) return `Il y a ${diffHours} heure${diffHours > 1 ? 's' : ''}`
-    else if (diffMinutes > 0) return `Il y a ${diffMinutes} minute${diffMinutes > 1 ? 's' : ''}`
-    else return 'à l\'instant'
+    // Set the profil link
+    document.querySelector('#topHome a').setAttribute('href', `profil.html?id=${accountId}`)
 }
+async function validTextArea(){
+    let authorId =  JSON.parse(localStorage.getItem('twitt-r-data')).userId
+    let authorName = await getAuthorName(authorId);
+    let msg = document.querySelector('#msgArea').value
 
+    let messageData = {
+        authorId: authorId,
+        authorName: authorName,
+        body: msg
+    }
+
+    let sendData={
+        method: 'POST',
+        body: JSON.stringify(messageData)
+    }
+    await fetch ('/db/sendMsg', sendData)
+}
+async function getAuthorName(authorId){
+    let options = {
+        method: 'POST',
+        body: authorId
+    }
+    let x;
+    await fetch ('/db/getAuthorName', options)
+    .then(response=>response.text())
+    .then(username=>{
+        x=username;
+    })
+    return x
+}
+async function getMesageById(id) {
+    let twert
+    const options = {
+        method: 'POST',
+        body: id
+    }
+    await fetch('/db/getMessageById', options)
+        .then(response => response.json())
+        .then((data) => twert = data )
+    return twert
+}
 async function getAllTwerts() {
     let toReturn
 

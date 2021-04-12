@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="../css/menu.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <title>Document</title>
+    <title>Twitèr - Accueil</title>
 </head>
 
 <body>
@@ -38,27 +38,23 @@
             </div>
         </div>
         <div class="col-sm-5">
-
-            <div id="accueil">
-                <p>Accueil</p>
+            <div class="row" id="topHome">
+                <div class="profilImgContainer">
+                    <a href=""><img src="" class="profilImg" alt="Profil"></a>
+                </div>
+                <div class="col-sm-10" class="textAreaContainer" id="filActu">
+                    <div id="msg">
+                        <textarea id="msgArea" placeholder="Quoi de neuf ?" maxlength="255"></textarea>
+                    </div>
+                    <div id="twert">
+                        <span class="fontStyle">0/255</span>
+                        <button type="button" class="validMsgBtn" onclick="validTextArea()">Twèrter</button>
+                    </div>
+                </div>
             </div>
-                <div class="row" id="topHome">
-                    <div class="col-sm-2">
-                        <img src="../img/cactus.png" alt="Profil" width="60px" style=" margin-top: 10px;">
-                    </div>
-                    <div class="col-sm-10" class="textAreaContainer" id="filActu">
-                        <div id="msg">
-                            <textarea id="msgArea" placeholder="Quoi de neuf ?" maxlength="255"></textarea>
-                        </div>
-                        <div id="twert">
-                            <span class="fontStyle">0/255</span>
-                            <button type="button" class="validMsgBtn" onclick="validTextArea()">Twèrter</button>
-                        </div>
-                    </div>
-                </div>
-                <div id="bottomHome">  
-
-                </div>
+            <div id="bottomHome">  
+    
+            </div>
         </div>
         <div class="col-sm-4" class="container">
         </div>
@@ -66,6 +62,7 @@
     <div>
 </body>
 
+<script src="../js/twertFunctions.js"></script>
 <script src="../js/main.js"></script>
 <script src="../js/menu.js"></script>
 

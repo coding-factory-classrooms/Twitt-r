@@ -89,8 +89,8 @@ async function saveComment(twertId, userId, authorId) {
                 twertElement.removeChild(commentTwertForm)
                 displayComment(comment)
             }
-            // If user is on the profil page, don't display the animation
-            else if (window.location.href.indexOf('profil.html') != -1) {
+            // If user is on the profil page or on the home page, don't display the animation
+            else if (window.location.href.indexOf('profil.html') != -1 || window.location.href.indexOf('main.html') != -1) {
                 twertElement.removeChild(commentTwertForm)
             }
             // If user is on the explore page, display animation

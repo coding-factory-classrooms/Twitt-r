@@ -35,7 +35,10 @@ const twertSchema = new mongoose.Schema({
     body: String,
     fav: Array,
     retweet: Array,
-    comments: Array
+    comments: Array,
+    isRetwert: Boolean,
+    retwertAuthor: String,
+    retwertAuthorId: String
 }, {timestamps: true})
 
 module.exports = {
