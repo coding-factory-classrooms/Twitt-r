@@ -324,6 +324,10 @@ app.post('/db/deleteALike', (req, res) => {
 app.post('/db/addARetweet', (req, res) => {
     const idTwert = JSON.parse(req.body).idTwert
     const userId = JSON.parse(req.body).userId
+    Account.findById(userId).then(async user => {
+        user.retweetTwert.push(idTwert)
+        await user.save()
+    })
 
     Twert.findById(idTwert).then(async twert => {
         twert.retweet.push(userId)
@@ -335,6 +339,15 @@ app.post('/db/addARetweet', (req, res) => {
 app.post('/db/deleteARetweet', (req, res) => {
     const idTwert = JSON.parse(req.body).idTwert
     const userId = JSON.parse(req.body).userId
+    Account.findById(userId).then(async user => {
+        for (let i = 0; i < user.retweetTwert.length; i++) {
+            const rtByUser = user.retweetTwert[i];
+            if(rtByUser == idTwert){
+                user.retweetTwert.splice(i,1)
+            }
+        }
+        await user.save()
+    })
 
     Twert.findById(idTwert).then(async twert => {
         for (let i = 0; i < twert.retweet.length; i++) {
