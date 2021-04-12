@@ -3,23 +3,19 @@ const url = window.location.search
 const urlParams = new URLSearchParams(url)
 const userId = urlParams.get('id')
 const accountId =  JSON.parse(localStorage.getItem('twitt-r-data')).userId
+const totalTwertsElements = document.querySelectorAll('.twertsCounter span')
+const descriptionElement = document.querySelector('.description')
+const followAndFollowersElements  = document.querySelectorAll('.counterFollow span')
+const twertsContainerElement = document.querySelector('.twertsContainer')
 
 setUserData()
+function test(){
+    console.log("Test");
+}
+async function setUserData() {  
 
-async function setUserData() {
-    let msgCounter = 0
-    const totalTwertsElements = document.querySelectorAll('.twertsCounter span')
-    const descriptionElement = document.querySelector('.description')
-    const followAndFollowersElements  = document.querySelectorAll('.counterFollow span')
-    const twertsContainerElement = document.querySelector('.twertsContainer')
-    const twertsElements = document.querySelectorAll('.twertsContainer twertCard')
     // Get user profile from id
-    const user = await getUser()
-
-    // Delete all twerts in the container
-    for (let i = 0; i < twertsElements.length; i++) {
-        twertsContainerElement.removeChild(twertsElements[i]);
-    }
+    let user = await getUser(userId)
 
     // Set background profile picture 
     const backgroundProfilContainer = document.querySelector('.backgroundImage img')
@@ -51,12 +47,23 @@ async function setUserData() {
     followAndFollowersElements[1].innerHTML = ` abonné${followersCount.length > 1 ? 's' : ''}`
     followAndFollowersElements[2].innerHTML = followCount.length + ' '
     followAndFollowersElements[3].innerHTML = ` abonnement${followCount.length > 1 ? 's' : ''}`
-
+    
+    $('.twertsOfProfilBtn').click()
+}
+// Display all the message for this profile
+async function displayTwertProfile() {
+    const twertsElements = document.querySelectorAll('.twertsContainer .twertCard')
+    // Get user profile from id
+    let user = await getUser(userId)
+    // Delete all twerts in the container
+    for (let i = 0; i < twertsElements.length; i++) {
+        twertsContainerElement.removeChild(twertsElements[i]);
+    }
+    let msgCounter = 0
     // Display all the twerts
     const allTwertsProfile = await getAllUserMessages(userId)
     for (let i = 0; i < allTwertsProfile.length; i++) {
         const twert = allTwertsProfile[i];
-
         twertsContainerElement.insertAdjacentHTML('afterbegin', `
             <div class="twertCard">
                 <div class="twertUserAndBody">
@@ -105,7 +112,83 @@ async function setUserData() {
             const likeElement = allLikeElements[i];
             onclickContain = likeElement.getAttribute('onclick')
             if (onclickContain.includes(twert._id) && twert.fav.includes(accountId)) {
-               likeElement.style.backgroundImage = "url('../img/like-red.png')"
+                likeElement.style.backgroundImage = "url('../img/like-red.png')"
+            }
+        }
+    }
+    // If user has no message, display the empty message
+    if (msgCounter == 0) {
+        document.querySelector('.twertsContainer .emptyMsgAlert').style.display = 'block'
+    }
+}
+// Display all the message that the profile liked
+async function displayLikedTwertProfile() {
+    const twertsElements = document.querySelectorAll('.twertsContainer .twertCard')
+    // Get user profile from id
+    let user = await getUser(userId)
+    // Delete all twerts in the container
+    for (let i = 0; i < twertsElements.length; i++) {
+        twertsContainerElement.removeChild(twertsElements[i]);
+    }
+    let msgCounter = 0
+    // Display all the twerts
+    const allTwerts = await getAllMessages()
+    for (let i = 0; i < allTwerts.length; i++) {
+        const twert = allTwerts[i];
+        if (twert.fav.includes(userId)) {
+            let userLiked = await getUser(twert.authorId)
+            console.log(twert.authorId);
+            console.log(userLiked);
+            twertsContainerElement.insertAdjacentHTML('afterbegin', `
+            <div class="twertCard">
+                <div class="twertUserAndBody">
+                    <div class="ppTwertContainer">
+                        <div class="ppTwert">
+                            <img src="${userLiked.profilImg}" alt="profilImage">
+                        </div>
+                    </div>
+                    <div class="twertInfoContainer">
+                        <div class="twertInfo">
+                            <p class="username">${twert.authorName}</p>
+                            <p class="diffTime">${getDiffTime(twert.createdAt)} </p>
+                        </div>
+                        <div class="twertContent">
+                            <p class="body">${twert.body}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="interactContainer">
+                    <div class="comentContainer">
+                        <button type="button" class="comentIcon btn" onclick="commentThisTwert('${twert._id}','${accountId}')"></button>
+                        <p>${twert.comments.length}</p>
+                    </div>
+                    <div class="rtContainer">
+                        <button type="button" class="rtIcon btn" onclick="toggleRt('${twert._id}','${accountId}')"></button>
+                        <p>${twert.retweet.length}</p>
+                    </div>
+                    <div class="favContainer">
+                        <button type="button" class="favIcon btn" onclick="toggleLike('${twert._id}','${accountId}')"></button>
+                        <p>${twert.fav.length}</p>
+                    </div>
+                </div>
+            </div>
+        `)
+        msgCounter++
+        }
+        let allRetwertElements = document.querySelectorAll('.rtIcon')
+        for (let i = 0; i < allRetwertElements.length; i++) {
+            const retwertElement = allRetwertElements[i];
+            onclickContain = retwertElement.getAttribute('onclick')
+            if (onclickContain.includes(twert._id) && twert.retweet.includes(accountId)) {
+                retwertElement.style.backgroundImage = "url('../img/retweet-green.png')"
+            }
+        }
+        let allLikeElements = document.querySelectorAll('.favIcon')
+        for (let i = 0; i < allLikeElements.length; i++) {
+            const likeElement = allLikeElements[i];
+            onclickContain = likeElement.getAttribute('onclick')
+            if (onclickContain.includes(twert._id) && twert.fav.includes(accountId)) {
+                likeElement.style.backgroundImage = "url('../img/like-red.png')"
             }
         }
     }
@@ -115,11 +198,11 @@ async function setUserData() {
     }
 }
 
-async function getUser() {
+async function getUser(authorId) {
     let user
     const options = {
         method: 'POST',
-        body: userId
+        body: authorId
     }
     await fetch('/db/getAccount', options)
     .then(response => response.json())
