@@ -64,10 +64,7 @@ app.get('/db/getAccounts', (req, res) => {
 })
 // Get account by ID
 app.post('/db/getAccount',(req, res) => {
-    const id = req.body
-    Account.findById(id)
-        .then((result) => { res.send(result)})
-        .catch((error) => { res.send(error)})
+    Account.findById(req.body).then(user => res.send(user))
 })
 // Get all messages
 app.get('/db/getMessages', (req, res) => {

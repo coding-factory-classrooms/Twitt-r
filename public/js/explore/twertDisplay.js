@@ -16,7 +16,7 @@ async function displayAllTwerts() {
     })
 }
 
-function displayTwert(twert, user) {
+async function displayTwert(twert, user) {
     twertListContainer.insertAdjacentHTML('afterbegin', `
         <div class="twertCard" id="${twert._id}">
             <div class="twertUserAndBody" onclick="goToTwertPage('${twert._id}')">
@@ -28,7 +28,7 @@ function displayTwert(twert, user) {
                 <div class="twertInfoContainer">
                     <div class="twertInfo">
                         <a href="profil.html?id=${user._id}"><p class="username">${user.username}</p></a>
-                        <p class="diffTime">${getDiffTime(twert.createdAt)} </p>
+                        <p class="diffTime">${getDiffTime(twert.createdAt)}</p>
                     </div>
                     <div class="twertContent">
                         <p class="body">${twert.body}</p>
@@ -68,21 +68,6 @@ function displayTwert(twert, user) {
         }
     }
 }
-function getDiffTime(createdAt) {
-    const date = new Date(createdAt)
-    const today = new Date()
-    
-    const diffMilli = today - date
-    const diffMinutes = Math.floor((diffMilli % (1000 * 60 * 60)) / (1000 * 60))
-    const diffHours = Math.floor((diffMilli % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toFixed(0)
-    const diffDays = Math.floor(((diffMilli % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)) / 24).toFixed(0)
-
-    if (diffDays > 0) return `Il y a ${diffDays} jour${diffDays > 1 ? 's' : ''}`
-    else if (diffHours > 0) return `Il y a ${diffHours} heure${diffHours > 1 ? 's' : ''}`
-    else if (diffMinutes > 0) return `Il y a ${diffMinutes} minute${diffMinutes > 1 ? 's' : ''}`
-    else return 'à l\'instant'
-}
-
 async function getAllTwerts() {
     let toReturn
 

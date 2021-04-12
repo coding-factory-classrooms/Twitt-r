@@ -34,9 +34,11 @@ async function displayMessages(interlocutorId, interlocutor, discussionId) {
         .then(response => response.json())
         .then(discussion => {
             const interlocutorNameElement = document.querySelector('.discussionContainer .discussionTitle p')
+            const interlocutorNameLink = document.querySelector('.discussionContainer .discussionTitle a')
             
             // Set the name of the interlocutor
             interlocutorNameElement.innerHTML = discussion.interlocutor
+            interlocutorNameLink.setAttribute('href', `profil.html?id=${discussion.interlocutorId}`)
     
             // Reset the discussion container
             const discussionMsg = document.querySelectorAll('.discussionContainer .discussion div')

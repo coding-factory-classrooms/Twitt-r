@@ -114,6 +114,10 @@ p {
     padding-left: 5%;
     font-size: 25px;
 }
+.discussionContainer .discussionTitle a {
+    color: white;
+    text-decoration: none;
+}
 .discussionContainer .discussion {
     width: 96%;
     height: 80%;
