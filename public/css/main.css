@@ -44,7 +44,7 @@ body {
     border: none;
     border-radius: 20px 20px;
     height: 4%;
-    width: 20%;
+    width: 52%;
 }
 #topHome{
     width: 100%;
@@ -67,6 +67,9 @@ body {
 }
 #msg {
     height: 70%;
+}
+#send {
+    margin-left: 70%;
 }
 
 /* twerts */

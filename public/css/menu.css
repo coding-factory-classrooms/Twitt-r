@@ -34,18 +34,6 @@
     height: 30px;
     margin-right: 15px;
 }
-.menuMainLink .menuIcon {
-    background-image: url('../img/whiteHome.png');
-}
-.menuExploreLink .menuIcon {
-    background-image: url('../img/whiteExplore.png');
-}
-.menuMsgLink .menuIcon {
-    background-image: url('../img/whiteMsg.png');
-}
-.menuProfilLink .menuIcon {
-    background-image: url('../img/whiteUser.png');
-}
 .menuContainer a {
     color: white;
     font-weight: bold;
