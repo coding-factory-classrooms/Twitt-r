@@ -1,7 +1,6 @@
 const express = require('express')
 const db = require('./database/exports')
 const figlet = require('figlet')
-const bcrypt = require('bcryptjs')
 
 // Server initiation
 const app = express()
@@ -39,7 +38,22 @@ app.post('/db/createAccount', (req, res) => {
         commentTwert: [],
     })
     createAccount.save()
-        .then(() => { res.sendStatus(200) })
+}) 
+// Create new Twèrt
+app.post('/db/newMessage', (req, res) => {
+    let msgData = req.body
+    
+    const newMessage = new Message({
+        authorId: authorId,
+        authorName: authorName,
+        body: body,
+        favCounter: 0,
+        retweetCounter: 0,
+        comments: []
+    })
+
+    newMessage.save()
+        .then((result) => { res.send(result) })
         .catch((error) => { res.send(error) })
 }) 
 // Get all accounts
