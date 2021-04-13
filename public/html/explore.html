@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/twert.css">
     <link rel="stylesheet" href="../css/explore.css">
     <link rel="stylesheet" href="../css/menu.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -43,7 +44,7 @@
     </div>
     
     <div class="twertListContainer">
-        <p class="emptyTwertMsg">Aucun twert trouvé parlant de <span></span></p>
+        <!-- <p class="emptyTwertMsg">Aucun twert trouvé parlant de <span></span></p> -->
     </div>
 
     <!-- TRENDS -->
@@ -57,13 +58,18 @@
             </ul>
         </div>
     </div>
+    
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
         
+    <script src="../js/components/twert.jsx" type="text/babel"></script>
+    <script src="../js/components/twertList.jsx" type="text/babel"></script>
     <script src="../js/explore/trendsAlgorithm.js"></script>
     <script src="../js/explore/twertSearchSystem.js"></script>
-    <script src="../js/explore/twertDisplay.js"></script>
+    <script src="../js/explore/twertDisplay.jsx" type="text/babel"></script>
     <script src="../js/menu.js"></script>
     <script src="../js/twertFunctions.js"></script>
-
-    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 </body>
 </html>

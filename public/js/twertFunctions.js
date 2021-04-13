@@ -1,8 +1,8 @@
 //localStorage.setItem('twitt-r-data', JSON.stringify({userId: '606c930e33ef3f96a9a49326'}))
 
-setInterval(async () => {
-    await checkLikeRtComent(accountId)
-}, 2000); 
+// setInterval(async () => {
+//     await checkLikeRtComent(accountId)
+// }, 2000); 
 // Toggle Rt
 async function toggleRt(idTwert, profileId) {
     const twert = await getMesageById(idTwert)
@@ -23,41 +23,12 @@ async function rtThisTwert(idTwert, profileId) {
     }
     await fetch('/db/addARetweet', options)
     const twert = await getMesageById(idTwert)
-    allTwertsTextProfile = document.querySelectorAll('.rtContainer p')
-    allRetwertElements = document.querySelectorAll('.rtIcon')
-    for (let i = 0; i < allRetwertElements.length; i++) {
-        const retwertElement = allRetwertElements[i];
-        const retwertTextElement = allTwertsTextProfile[i]
-        onclickContain = retwertElement.getAttribute('onclick')
-        if (onclickContain.includes(idTwert) && twert._id == idTwert) {
-            retwertElement.style.backgroundImage = "url('../img/retweet-green.png')"
-            retwertTextElement.innerHTML = twert.retweet.length + 1
-        }
-    }
-}
-async function commentThisTwert(twertId, userId, authorName, authorId) {
-    const twertElement = document.getElementById(twertId)
-    const allCommentsForm = twertElement.querySelectorAll('.commentTwertContainer')
+    const twertElement = document.getElementById(idTwert)
+    const retwertElement = twertElement.querySelector('.rtIcon')
+    const retwertTextElement = twertElement.querySelector('.rtContainer p')
 
-    if (allCommentsForm.length == 0) {
-        const twertElement = document.getElementById(twertId)
-        twertElement.insertAdjacentHTML('beforeend', `
-            <div class="commentTwertContainer">
-                <input type="text" placeholder="Répondre à ${authorName}">
-                <div class="commentBtnContainer" onclick="saveComment('${twertId}', '${userId}', '${authorId}')">
-                    <p>Répondre</p>
-                </div>
-            </div>
-        `)
-        twertElement.querySelector('input').select()
-        // If user hit Enter key, run the saveComment function
-        document.querySelector('.commentTwertContainer input').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') saveComment(twertId, userId, authorId)
-        })
-    } else {
-        const commentTwertForm = twertElement.querySelector('.commentTwertContainer')
-        twertElement.removeChild(commentTwertForm)
-    }
+    retwertElement.style.backgroundImage = "url('../img/retweet-green.png')"
+    retwertTextElement.innerHTML = twert.retweet.length + 1
 }
 function goToTwertPage(id) {
     window.location.href = `twert.html?id=${id}`
@@ -66,7 +37,6 @@ async function saveComment(twertId, userId, authorId) {
     event.preventDefault()
     const twertElement = document.getElementById(twertId)
     const commentTwertForm = twertElement.querySelector('.commentTwertContainer')
-    const commentBtnContainer = commentTwertForm.querySelector('.commentBtnContainer')
     const commentBody = twertElement.querySelector('.commentTwertContainer input').value
 
     if (commentBody.length > 0) {
@@ -82,28 +52,12 @@ async function saveComment(twertId, userId, authorId) {
             // Increment the number of comments
             const totalCommentsElement = twertElement.querySelector('.interactContainer .comentContainer p')
             const totalComments = parseInt(totalCommentsElement.innerHTML)
+
             totalCommentsElement.innerHTML = totalComments + 1
-            
-            // If user is on the twert page, don't display the animation but display the comment
-            if (window.location.href.indexOf('twert.html') != -1) {
-                twertElement.removeChild(commentTwertForm)
-                displayComment(comment)
-            }
-            // If user is on the profil page or on the home page, don't display the animation
-            else if (window.location.href.indexOf('profil.html') != -1 || window.location.href.indexOf('main.html') != -1) {
-                twertElement.removeChild(commentTwertForm)
-            }
-            // If user is on the explore page, display animation
-            else {
-                commentBtnContainer.removeChild(commentBtnContainer.querySelector('p'))
-                commentBtnContainer.insertAdjacentHTML('afterbegin', `
-                    <lottie-player src='../img/checkmark-animation.json' autoplay></lottie-player>
-                `)
-                setTimeout(() => {
-                    // Remove the comment form
-                    twertElement.removeChild(commentTwertForm)
-                }, 1500)
-            }
+            commentTwertForm.style.display = 'none'
+
+            // If user is on the twert page, display the comment
+            if (window.location.href.indexOf('twert.html') != -1) displayComment(comment)
         })
     }
 }
@@ -117,19 +71,14 @@ async function deleteRtThisTwert(idTwert, profileId) {
         })
     }
     await fetch('/db/deleteARetweet', options)
+
     const twert = await getMesageById(idTwert)
-    allTwertsTextProfile = document.querySelectorAll('.rtContainer p')
-    allRetwertElements = document.querySelectorAll('.rtIcon')
-    for (let i = 0; i < allRetwertElements.length; i++) {
-        const retwertElement = allRetwertElements[i];
-        const retwertTextElement = allTwertsTextProfile[i]
-        onclickContain = retwertElement.getAttribute('onclick')
-        if (onclickContain.includes(idTwert) && twert._id == idTwert) {
-            retwertElement.style.backgroundImage = "url('../img/retweet.png')"
-            retwertTextElement.innerHTML = twert.retweet.length - 1
-        }
-    }
-    
+    const twertElement = document.getElementById(idTwert)
+    const retwertElement = twertElement.querySelector('.rtIcon')
+    const retwertTextElement = twertElement.querySelector('.rtContainer p')
+
+    retwertElement.style.backgroundImage = "url('../img/retweet.png')"
+    retwertTextElement.innerHTML = twert.retweet.length - 1
 }
 // Toggle Like
 async function toggleLike(idTwert, profileId) {
@@ -151,17 +100,12 @@ async function likeThisTwert(idTwert, profileId) {
     }
     await fetch('/db/addALike', options)
     const twert = await getMesageById(idTwert)
-    let allLikeTextElements = document.querySelectorAll('.favContainer p')
-    let allLikeElements = document.querySelectorAll('.favIcon')
-    for (let i = 0; i < allLikeElements.length; i++) {
-        const likeElement = allLikeElements[i];
-        const likeTextElement = allLikeTextElements[i];
-        onclickContain = likeElement.getAttribute('onclick')
-        if (onclickContain.includes(idTwert) && twert._id == idTwert) {
-            likeElement.style.backgroundImage = "url('../img/like-red.png')"
-            likeTextElement.innerHTML = twert.fav.length + 1
-        }
-    }
+    let twertElement = document.getElementById(idTwert)
+    let likeElement = twertElement.querySelector('.favIcon')
+    let likeTextElement = twertElement.querySelector('.favContainer p')
+    
+    likeElement.style.backgroundImage = "url('../img/like-red.png')"
+    likeTextElement.innerHTML = twert.fav.length + 1
 }
 // Delete a retwert of a twert
 async function deleteLikeThisTwert(idTwert, profileId) {
@@ -174,17 +118,12 @@ async function deleteLikeThisTwert(idTwert, profileId) {
     }
     await fetch('/db/deleteALike', options)
     const twert = await getMesageById(idTwert)
-    allTwertsTextProfile = document.querySelectorAll('.favContainer p')
-    allLikeElements = document.querySelectorAll('.favIcon')
-    for (let i = 0; i < allLikeElements.length; i++) {
-        const likeElement = allLikeElements[i];
-        const likeTextElement = allTwertsTextProfile[i]
-        onclickContain = likeElement.getAttribute('onclick')
-        if (onclickContain.includes(idTwert) && twert._id == idTwert) {
-            likeElement.style.backgroundImage = "url('../img/like.png')"
-            likeTextElement.innerHTML = twert.fav.length - 1
-        }
-    }
+    let twertElement = document.getElementById(idTwert)
+    let likeElement = twertElement.querySelector('.favIcon')
+    let likeTextElement = twertElement.querySelector('.favContainer p')
+    
+    likeElement.style.backgroundImage = "url('../img/like.png')"
+    likeTextElement.innerHTML = twert.fav.length - 1
 }
 // Check if the count of like or of retwert or of comment have changed
 async function checkLikeRtComent(profileId){
