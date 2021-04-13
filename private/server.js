@@ -422,3 +422,22 @@ async function fillFollowedProfilsActivityArray(followList, followedProfilsActiv
         })
     }
 }
+// Hash password
+app.post('/db/hashPassword', async (req, res) => {
+    let password = req.body
+    bcrypt.hash(password, 10)
+    .then((result) => { res.send(result) })
+})
+
+// Compare passwords
+app.post('/db/comparePasswords', async (req, res) => {
+    let passwords = req.body
+    bcrypt.compare(passwords.password, passwords.hash)
+    .then((match) => {
+        if (match) {
+            res.sendStatus(200)
+        } else {
+            res.sendStatus(400)
+        }
+    })
+})
