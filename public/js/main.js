@@ -11,6 +11,12 @@ displayTimeLine()
 // Set the profil img and the link to the profil page
 setProfilImgAndLink()
 
+// Set the textarea listener
+const textarea = document.querySelector('.createNewTwertInputContainer textarea')
+textarea.addEventListener('input', () => {
+    document.querySelector('.createNewTwertInputContainer span').innerHTML = textarea.value.length + '/255'
+})
+
 async function displayTimeLine() {
     // Get twerts ans retwerts of all followed profil of the user
     const followedProfilsActivity = await fetch('/db/getFollowedProfilsActivity', { method: 'POST', body: accountId }).then(response => response.json())
@@ -20,7 +26,6 @@ async function displayTimeLine() {
         displayTwert(twert, user)
     })
 }
-
 async function displayAllTwerts() {
     const twertList = await getAllTwerts()
 
@@ -30,7 +35,7 @@ async function displayAllTwerts() {
     })
 }
 function displayTwert(twert, user) {
-    bottomHome.insertAdjacentHTML('afterbegin', `
+    document.querySelector('.twertListContainer').insertAdjacentHTML('afterbegin', `
         <div class="twertCard" id="${twert._id}">
             ${twert.isRetwert ? `
                 <div class="retwertMsgContainer">
@@ -56,7 +61,7 @@ function displayTwert(twert, user) {
             </div>
             <div class="interactContainer">
                 <div class="comentContainer">
-                    <button type="button" class="comentIcon btn" onclick="commentThisTwert('${twert._id}','${accountId}')"></button>
+                    <button type="button" class="comentIcon btn" onclick="commentThisTwert('${twert._id}','${accountId}', '${user.username}', '${user._id}')"></button>
                     <p>${twert.comments.length}</p>
                 </div>
                 <div class="rtContainer">
@@ -74,27 +79,29 @@ function displayTwert(twert, user) {
 async function setProfilImgAndLink() {
     // Set the profil img
     const user = await getTwertAuthor(accountId)
-    document.querySelector('#topHome img').src = user.profilImg 
+    document.querySelector('.profilImgContainer img').src = user.profilImg 
 
     // Set the profil link
-    document.querySelector('#topHome a').setAttribute('href', `profil.html?id=${accountId}`)
+    document.querySelector('.profilImgContainer a').setAttribute('href', `profil.html?id=${accountId}`)
 }
 async function validTextArea(){
     let authorId =  JSON.parse(localStorage.getItem('twitt-r-data')).userId
     let authorName = await getAuthorName(authorId);
     let msg = document.querySelector('#msgArea').value
 
-    let messageData = {
-        authorId: authorId,
-        authorName: authorName,
-        body: msg
+    if (msg.length > 0) {
+        let messageData = {
+            authorId: authorId,
+            authorName: authorName,
+            body: msg
+        }
+    
+        let sendData = {
+            method: 'POST',
+            body: JSON.stringify(messageData)
+        }
+        await fetch ('/db/sendMsg', sendData).then(() => document.getElementById('msgArea').value = '')
     }
-
-    let sendData={
-        method: 'POST',
-        body: JSON.stringify(messageData)
-    }
-    await fetch ('/db/sendMsg', sendData)
 }
 async function getAuthorName(authorId){
     let options = {

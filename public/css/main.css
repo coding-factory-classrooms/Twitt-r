@@ -3,31 +3,26 @@ body {
     font-family: 'poppins', sans-serif;
     background-color: rgb(21,32,43);
     color: white;
+    display: flex;
+    justify-content: center;
 }
 .menuContainer {
     border-right: none !important;
 }
+.backMenu {
+    display: none !important;
+}
 
-.col-sm-5{
-    padding-right: 0px;
-    padding-left: 0px;
-}
-#principalHome{
-    height: 1000px;
-}
-#accueil{
-    width: 100%;
-}
-#accueil p {
-    margin-top: 2%;
-    margin-left: 2%;
-    font-size: 20px;
-    font-weight: 800;
+.homeContainer {
+    width: 40%;
+    min-width: 500px;
 }
 #msgArea{
     background-color: rgb(21, 32, 43);
     border-radius: 7px;
-    width: 94%;
+    padding-top: 15px;
+    width: 95%;
+    margin-left: 5%;
     color: white;
     border: none;
     height: 150px;
@@ -42,17 +37,25 @@ body {
     color: white;
     background-color: rgb(29, 161, 242);
     border: none;
-    border-radius: 20px 20px;
-    height: 4%;
-    width: 52%;
+    border-radius: 100px;
+    padding: 5px 25px;
+    font-weight: 500;
+    outline: none !important;
 }
-#topHome{
+.createNewTwertContainer {
+    display: flex;
     width: 100%;
-    margin: 7vh 0;
-    padding: 2vh;
+    padding: 5%;
+    margin: 5vh 0 7px 0;
     box-shadow: 0px 0px 12px 1px rgb(9, 9, 10, .3);
     border: 1px solid rgba(29, 161, 242, .1);
     border-radius: 10px;
+}
+.createNewTwertInputContainer {
+    width: 100%;
+}
+.createNewTwertInputContainer .twertActionContainer {
+    float: right;
 }
 .profilImgContainer {
     width: 60px;
@@ -60,21 +63,23 @@ body {
     border-radius: 50%;
     overflow: hidden;
 }
+.twertActionContainer {
+    display: flex;
+    align-items: center;
+}
+.twertActionContainer span {
+    margin-right: 10px;
+    font-size: 13px;
+    opacity: .5;
+}
 .profilImgContainer img, .profilImgContainer a {
-    width: 100%;
-    height: 100%;
-
-}
-#msg {
-    height: 70%;
-}
-#send {
-    margin-left: 70%;
+    width: 60px;
+    height: 60px;
 }
 
 /* twerts */
 .twertListContainer {
-    width: 70%;
+    width: 100%;
     height: fit-content;
     display: flex;
     flex-direction: column;
@@ -102,7 +107,7 @@ body {
 }
 .twertCard {
     width: 100%;
-    margin: 15px 0; 
+    margin: 7px 0; 
     box-shadow: 0px 0px 12px 1px rgb(9, 9, 10, .3);
     border: 1px solid rgba(29, 161, 242, .1);
     border-radius: 10px;
@@ -234,8 +239,11 @@ body {
     outline: none;
     border: none;
     border-radius: 100px;
-    font-size: 14px;
+    font-size: 13px;
     color: white;
+}
+.commentTwertContainer input::placeholder {
+    font-size: 13px;
 }
 .commentTwertContainer .commentBtnContainer {
     display: flex;

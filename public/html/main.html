@@ -14,60 +14,57 @@
 </head>
 
 <body>
-    <div class="row" id="principalHome">
-        <div class="col-sm-3" class="container">
-            <div class="menuContainer">
-                <ul>
-                    <li class="menuMainLink active">
-                        <img src="../img/blueHome.png" alt="Accueil">
-                        <a href="main.html">Accueil</a>
-                    </li>
-                    <li class="menuExploreLink">
-                        <img src="../img/whiteExplore.png" alt="Explorer">
-                        <a href="explore.html">Explorer</a>
-                    </li>
-                    <li class="menuMsgLink">
-                        <img src="../img/whiteMsg.png" alt="Messages">
-                        <a href="privateMessages.html">Messages</a>
-                    </li>
-                    <li class="menuProfilLink">
-                        <img src="../img/whiteUser.png" alt="Profil">
-                        <a href="">Profil</a>
-                    </li>
-                    <li class="menuAboutUsLink">
-                        <img src="../img/whiteAboutUs.png" alt="aboutUs">
-                        <a href="aboutUs.html">À propos</a>
-                    </li>
-                </ul>
+    <!-- MENU -->
+    <div class="backMenu"></div>
+    <div class="menuContainer">
+        <ul>
+            <li class="menuMainLink active">
+                <img src="../img/blueHome.png" alt="Accueil">
+                <a href="main.html">Accueil</a>
+            </li>
+            <li class="menuExploreLink">
+                <img src="../img/whiteExplore.png" alt="Explorer">
+                <a href="explore.html">Explorer</a>
+            </li>
+            <li class="menuMsgLink">
+                <img src="../img/whiteMsg.png" alt="Messages">
+                <a href="privateMessages.html">Messages</a>
+            </li>
+            <li class="menuProfilLink">
+                <img src="../img/whiteUser.png" alt="Profil">
+                <a href="">Profil</a>
+            </li>
+            <li class="menuAboutUsLink">
+                <img src="../img/whiteAboutUs.png" alt="aboutUs">
+                <a href="aboutUs.html">À propos</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="homeContainer">
+        <div class="createNewTwertContainer">
+            <div class="profilImgContainer">
+                <a href=""><img src="" class="profilImg" alt="Profil"></a>
             </div>
-        </div>
-        <div class="col-sm-5">
-            <div class="row" id="topHome">
-                <div class="profilImgContainer">
-                    <a href=""><img src="" class="profilImg" alt="Profil"></a>
-                </div>
-                <div class="col-sm-10" class="textAreaContainer" id="filActu">
-                    <div id="msg">
-                        <textarea id="msgArea" placeholder="Quoi de neuf ?" maxlength="255"></textarea>
-                    </div>
-                    <div id="twert">
-                        <span class="fontStyle">0/255</span>
-                        <button type="button" class="validMsgBtn" onclick="validTextArea()">Twèrter</button>
-                    </div>
+            <div class="createNewTwertInputContainer">
+                <textarea id="msgArea" placeholder="Quoi de neuf ?" maxlength="255"></textarea>
+                <div class="twertActionContainer">
+                    <span>0/255</span>
+                    <button type="button" class="validMsgBtn" onclick="validTextArea()">Twèrter</button>
                 </div>
             </div>
-            <div id="bottomHome">  
-    
-            </div>
         </div>
-        <div class="col-sm-4" class="container">
+
+        <div class="twertListContainer">
+
         </div>
-      </div>
-    <div>
+    </div>
+
+        
+    <script src="../js/twertFunctions.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/menu.js"></script>
 </body>
 
-<script src="../js/twertFunctions.js"></script>
-<script src="../js/main.js"></script>
-<script src="../js/menu.js"></script>
 
 </html>

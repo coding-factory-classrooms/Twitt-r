@@ -193,6 +193,7 @@ app.post('/db/sendMsg', async (req, res)=>{
         user.twert.push(newTwertId)
         await user.save()
     })
+    res.sendStatus(200)
 })
 // Create a new private discussion
 app.post('/db/newPrivateDiscussion', async (req, res) => {

@@ -10,6 +10,9 @@ body {
 p {
     margin: 0;
 }
+.menuContainer {
+    border-right: none !important;
+}
 
 /* INPUT */
 .exploreInputContainer {
@@ -216,7 +219,6 @@ p {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    border-left: 1px solid #80808042;
 }
 .exploreTrends ul {
     padding-left: 0;
