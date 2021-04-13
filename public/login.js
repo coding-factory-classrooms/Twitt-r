@@ -12,12 +12,12 @@ if (JSON.parse(localStorage.getItem('twittrData')).connected) {
 }
 
 connectionBtn.addEventListener('click', async (event) => {
-    const loginInput = document.querySelectorAll('.formContainer input')
+    const loginInput = document.querySelectorAll('.formContainerlog input')
     // Don't reset the form
     event.preventDefault()
 
     // check if all inputs are filled and if the values aren't already taken
-    let isInputsCorrect = await checkInputs(loginInput)
+    let isInputsCorrect = await checklogInputs(loginInput)
 
     if (isInputsCorrect) {
         // set the user id in local storage
@@ -30,15 +30,16 @@ connectionBtn.addEventListener('click', async (event) => {
     }
 })
 
-async function checkInputs(inputs) {
+async function checklogInputs(inputs) {
     let emailRegexp = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/
 
     // Wait for the execution of all functions
-    let isEmailCorrect = await checkEmail(inputs[0].value)
-    let isPasswordCorrect = await checkPassword(inputs[1].value, inputs[0].value)
+    let isEmailCorrect = await checklogEmail(inputs[0].value)
+    let isPasswordCorrect = await checklogPassword(inputs[1].value, inputs[0].value)
     
     if (!emailRegexp.test(inputs[0].value)) {
         errorMsg('Email invalide')
+        console.log("slt")
         return false
     } else if (!isEmailCorrect) {
         errorMsg('Cet email n\'est associée à aucun compte')
@@ -51,7 +52,7 @@ async function checkInputs(inputs) {
     return true
 }
 
-async function checkEmail (email) {
+async function checklogEmail (email) {
     let accounts = await getAllAccounts()
     
     for (let i = 0; i < accounts.length; i++) {
@@ -62,7 +63,7 @@ async function checkEmail (email) {
     return false
 }
 
-async function checkPassword (password, email) {
+async function checklogPassword (password, email) {
     let accounts = await getAllAccounts()
 
     for (let i = 0; i < accounts.length; i++) {

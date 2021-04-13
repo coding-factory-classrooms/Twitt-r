@@ -13,7 +13,6 @@ registerBtn.addEventListener('click', async (event) => {
     const inputs = document.querySelectorAll('.registerForm input')
     // Don't reset the form
     event.preventDefault()
-    
     // check if all inputs are filled and if the values aren't already taken
     let isInputsCorrect = await checkInputs(inputs)
 
@@ -47,7 +46,6 @@ async function createAccount(userData) {
     
     await fetch('/db/createAccount', options)
     
-    // setLocalStorageData()
 }
 
 async function checkInputs(inputs) {
@@ -67,7 +65,7 @@ async function checkInputs(inputs) {
         return false
     }
     // Check email
-    else if (!emailRegexp.test(inputs[1].value)) {
+    if (!emailRegexp.test(inputs[1].value)) {
         errorMsg('Email invalide')
         return false
     } else if (!isEmailCorrect) {
@@ -75,7 +73,7 @@ async function checkInputs(inputs) {
         return false
     }
     // Check password
-    else if (inputs[2].value.length < 3) {
+    if (inputs[2].value.length < 3) {
         errorMsg('Mot de passe trop court')
         return false
     }
@@ -153,7 +151,7 @@ async function getUserId(email) {
 }
 
 function showPassword() {
-    let password = document.getElementById('passwordInput');
+    let password = document.getElementById('PasswordInput');
     
     if (password.type === "password") {
         password.type = "text";

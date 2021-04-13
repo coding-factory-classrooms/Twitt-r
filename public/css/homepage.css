@@ -4,8 +4,22 @@ html, body {
     overflow: hidden;
 }
 
-containerleft {
-    background-image: url(/img/low-poly-grid-haikei.svg);
-    
+.containerLeft {
+  
 }
 
+.containerRight {
+
+}
+
+.logFormContainer {
+
+}
+
+.registerFormContainer {
+
+}
+
+.background {
+
+}
