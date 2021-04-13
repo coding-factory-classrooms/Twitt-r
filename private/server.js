@@ -29,7 +29,10 @@ app.post('/db/createAccount', (req, res) => {
         username: userData.username,
         email: userData.email,
         password: userData.password,
+        profilImg: 'https://images.squarespace-cdn.com/content/v1/5dd67ab347b52c5c5984ee18/1593518269650-UMHG1MMDSCRWUSS0SKF1/ke17ZwdGBToddI8pDm48kAJXj4ETMmaoAkiYY4JFQXlZw-zPPgdn4jUwVcJE1ZvWQUxwkmyExglNqGp0IvTJZUJFbgE-7XRK3dMEBRBhUpzf8daNC-MxxGfY8vPcOHHcwhdOGrzXvqNaZna-CxAalzRvs09ahw_N0yOE2Vlg1XM/user-avatar-icon-sign-symbol-vector-4001945.jpg',
+        backgroundProfilImg: 'https://www.schemecolor.com/wallpaper?i=4334&mobile',
         privateMessages: [],
+        description: '',
         twert: [], 
         favTwert: [],
         retweetTwert: [],
@@ -47,16 +50,95 @@ app.get('/db/getAccounts', (req, res) => {
 })
 // Get account by ID
 app.post('/db/getAccount',(req, res) => {
-    const id = req.body
-    Account.findById(id)
-        .then((result) => { res.send(result)})
-        .catch((error) => { res.send(error)})
+    Account.findById(req.body).then(user => res.send(user))
 })
 // Get all messages
 app.get('/db/getMessages', (req, res) => {
     Twert.find().then((data) => {
         res.send(data)
     })
+})
+// Get the list of follow of a user
+app.post('/db/getFollowOfUser', (req, res) => {
+    Account.findById(req.body).then(async user => {
+        res.send(user.follow)
+    })
+})
+// Get the list of followers of a user
+app.post('/db/getFollowersOfUser', (req, res) => {
+    Account.findById(req.body).then(async user => {
+        res.send(user.followers)
+    })
+})
+// Follow a user 
+app.post('/db/followProfil', (req, res) => {
+    const data = JSON.parse(req.body)
+
+    // Add the profilId to follow array of the user
+    Account.findById(data.userId).then(async user => {
+        user.follow.push(data.profilId)
+        await user.save()
+    })
+    // Add the userId to followers array of the profil user
+    Account.findById(data.profilId).then(async user => {
+        user.followers.push(data.userId)
+        await user.save()
+    })
+    res.sendStatus(200)
+})
+// Unfollow a user 
+app.post('/db/unfollowProfil', (req, res) => {
+    const data = JSON.parse(req.body)
+
+    // Remove the profilId from follow array of the user
+    Account.findById(data.userId).then(async user => {
+        for (let i = 0; i < user.follow.length; i++) {
+            if (user.follow[i] == data.profilId) {
+                user.follow.splice(i, 1)
+                await user.save()
+            }
+        }
+    })
+    // Remove the userId from followers array of the profil user
+    Account.findById(data.profilId).then(async user => {
+        for (let i = 0; i < user.followers.length; i++) {
+            if (user.followers[i] == data.userId) {
+                user.followers.splice(i, 1)
+                await user.save()
+            }
+        }
+    })
+    res.sendStatus(200)
+})
+// Update biography of user 
+app.post('/db/updateBiography', (req, res) => {
+    const data = JSON.parse(req.body)
+
+    Account.findById(data.userId).then(async user => {
+        user.description = data.body
+        await user.save()
+    })
+    res.sendStatus(200)
+})
+// Update profil image of user 
+app.post('/db/updateProfilImg', (req, res) => {
+    const data = JSON.parse(req.body)
+
+    Account.findById(data.userId).then(async user => {
+        user.profilImg = data.body
+        await user.save()
+    })
+    res.sendStatus(200)
+})
+// Update background profil image of user 
+app.post('/db/updateBackgroundProfilImg', (req, res) => {
+    const data = JSON.parse(req.body)
+
+    Account.findById(data.userId).then(async user => {
+        user.backgroundProfilImg = data.body
+        await user.save()
+    })
+    res.sendStatus(200)
 })
 // Get Message By Id
 app.post('/db/getMessageById', (req, res) => {
@@ -65,6 +147,12 @@ app.post('/db/getMessageById', (req, res) => {
         .then((result) => { res.send(result)})
         .catch((error) => { res.send(error)})
 })
+// Get all comments of a twert
+app.post('/db/getAllCommentsOfTwert', (req, res) => {
+    Twert.findById(req.body).then(twert => {
+        res.send(twert.comments)
+    })
+})
 // Get name of the author of a twert
 app.post('/db/getAuthorName', (req, res)=>{
     Account.findById(req.body).then((user)=>{
@@ -72,7 +160,7 @@ app.post('/db/getAuthorName', (req, res)=>{
     })
 })
 // Send twert to bdd
-app.post('/db/sendMsg', (req, res)=>{
+app.post('/db/sendMsg', async (req, res)=>{
     let msg = JSON.parse(req.body)
     const twert = {
         authorId: msg.authorId,
@@ -83,7 +171,15 @@ app.post('/db/sendMsg', (req, res)=>{
         comments: []
     }
     newTwert = new Twert(twert)
-    newTwert.save()
+    await newTwert.save()
+    newTwertId = newTwert._id
+
+    // Save twert in user profil
+    Account.findById(msg.authorId).then(async user => {
+        user.twert.push(newTwertId)
+        await user.save()
+    })
+    res.sendStatus(200)
 })
 // Create a new private discussion
 app.post('/db/newPrivateDiscussion', async (req, res) => {
@@ -222,6 +318,10 @@ app.post('/db/deleteALike', (req, res) => {
 app.post('/db/addARetweet', (req, res) => {
     const idTwert = JSON.parse(req.body).idTwert
     const userId = JSON.parse(req.body).userId
+    Account.findById(userId).then(async user => {
+        user.retweetTwert.push(idTwert)
+        await user.save()
+    })
 
     Twert.findById(idTwert).then(async twert => {
         twert.retweet.push(userId)
@@ -233,6 +333,15 @@ app.post('/db/addARetweet', (req, res) => {
 app.post('/db/deleteARetweet', (req, res) => {
     const idTwert = JSON.parse(req.body).idTwert
     const userId = JSON.parse(req.body).userId
+    Account.findById(userId).then(async user => {
+        for (let i = 0; i < user.retweetTwert.length; i++) {
+            const rtByUser = user.retweetTwert[i];
+            if(rtByUser == idTwert){
+                user.retweetTwert.splice(i,1)
+            }
+        }
+        await user.save()
+    })
 
     Twert.findById(idTwert).then(async twert => {
         for (let i = 0; i < twert.retweet.length; i++) {
@@ -245,23 +354,71 @@ app.post('/db/deleteARetweet', (req, res) => {
     })
     res.sendStatus(200)
 })
+// Add a comment to a twert
+app.post('/db/commentThisTwert', async (req, res) => {
+    const data = JSON.parse(req.body)
 
-// Hash password
-app.post('/db/hashPassword', async (req, res) => {
-    let password = req.body
-    bcrypt.hash(password, 10)
-    .then((result) => { res.send(result) })
-})
-
-// Compare passwords
-app.post('/db/comparePasswords', async (req, res) => {
-    let passwords = req.body
-    bcrypt.compare(passwords.password, passwords.hash)
-    .then((match) => {
-        if (match) {
-            res.sendStatus(200)
-        } else {
-            res.sendStatus(400)
+    // Add the comment to the user profil
+    Account.findById(data.userId).then(async user => {
+        const newComment = {
+            twertId: data.twertId,
+            commentBody: data.commentBody
         }
+        user.commentTwert.push(newComment)
+        await user.save()
+    })
+
+    // Add the comment to the twert's comments
+    const author = await Account.findById(data.userId)
+
+    Twert.findById(data.twertId).then(async twert => {
+        const newComment = {
+            authorId: data.userId,
+            authorName: author.username,
+            authorProfileImg: author.profilImg,
+            commentBody: data.commentBody,
+            createdAt: new Date()
+        }
+        twert.comments.push(newComment)
+        await twert.save()
+        res.send(newComment)
     })
 })
+// Get twerts ans retwerts of all followed profil of the user
+app.post('/db/getFollowedProfilsActivity', (req, res) => {
+    Account.findById(req.body).then(async user => {
+        // Get all followed users
+        const followList = user.follow
+        let followedProfilsActivity = []
+
+        await fillFollowedProfilsActivityArray(followList, followedProfilsActivity).then(() => {
+            // Sort the array in function of the date of the twert/retwert
+            const newArray = followedProfilsActivity.sort((a, b) => a.createdAt - b.createdAt)
+            res.send(newArray)
+        })
+    })
+})
+async function fillFollowedProfilsActivityArray(followList, followedProfilsActivity) {
+    for(let i = 0; i < followList.length; i++) {
+        const userId = followList[i];
+        // Fill the followedProfilsActivity array with the activity of the followed user
+        await Account.findById(userId).then(async user => {
+            // Push all user's twert
+            for (let j = 0; j < user.twert.length; j++) {
+                const twert = await Twert.findById(user.twert[j])
+                twert.isRetwert = false,
+                
+                followedProfilsActivity.push(twert)
+            }
+            // Push all user's retwert
+            for (let j = 0; j < user.retweetTwert.length; j++) {
+                const retwert = await Twert.findById(user.retweetTwert[j])
+                retwert.isRetwert = true,
+                retwert.retwertAuthor = user.username
+                retwert.retwertAuthorId = user._id
+
+                followedProfilsActivity.push(retwert)
+            }
+        })
+    }
+}
