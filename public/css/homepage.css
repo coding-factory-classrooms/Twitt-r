@@ -1,23 +1,31 @@
-html, body {
+/* html, body {
     margin: 0;
     height: 100%;
     overflow: hidden;
-}
+} */
 
-.containerLeft {
-  
+#background{
+    background-color: black;
 }
-
+.fontStyle{
+    color: white;
+}
+#registerBtn, #connectionBtn{
+    color: black;
+}
 .containerRight {
 
 }
 
 .logFormContainer {
-
+    margin-top: 20%;
+    margin-left: 8%;
 }
 
 .registerFormContainer {
-
+    margin-top: 20%;
+    margin-left: 8%;
+    
 }
 
 .background {
