@@ -1,5 +1,5 @@
+const exploreInputContainer = document.querySelector('.exploreInputContainer')
 const exploreInput = document.querySelector('.exploreInputContainer input')
-const emptyTwertMsg = document.querySelector('.emptyTwertMsg')
 
 exploreInput.addEventListener('input', () => {
     searchTwert(exploreInput.value.toLowerCase())
@@ -16,10 +16,10 @@ function setTrendsListener() {
         })
     }
 }
-
 function searchTwert(toSearch) {
     // Twert search system
     const twerts = document.querySelectorAll('.twertListContainer .twertCard')
+    const emptyTwertMsg = document.querySelector('.emptyTwertMsg')
     
     twerts.forEach(twertElement => {
         const twert = twertElement.querySelector('.twertContent .body').innerHTML.toLowerCase();
@@ -35,10 +35,7 @@ function searchTwert(toSearch) {
     twerts.forEach(twert => {
         if (twert.style.display == 'none') hiddenTwert++
     })
-
-    if (hiddenTwert == twerts.length) {
-        emptyTwertMsg.style.display = 'block'
-        emptyTwertMsg.querySelector('span').innerHTML = toSearch
-    }
+    
+    if (hiddenTwert == twerts.length) emptyTwertMsg.style.display = 'block'
     else emptyTwertMsg.style.display = 'none'
 }

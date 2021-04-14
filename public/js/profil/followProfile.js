@@ -1,5 +1,8 @@
+const url = window.location.search
+const urlParams = new URLSearchParams(url)
 const profilId = urlParams.get('id')
 const mainProfilBtn = document.querySelector('.profilMainBtn')
+const accountId =  JSON.parse(localStorage.getItem('twitt-r-data')).userId
 
 // If user watch the profil of another person
 if (accountId != profilId) {
