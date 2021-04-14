@@ -15,40 +15,51 @@
     <div class="row">
         <div class="col-sm-6" class="containerLeft">
             <div class="background">
-                <img src="../img/low-poly-grid-haikei.png" alt="Explorer" style="height: 821px; width: 720px;">
+                <img id="logo" src="../img/logo_index.png" alt="Explorer">
             </div>    
         </div>
         <div class="col-sm-6" id="background">
             <div class="containreRight">
                 <div class="registerFormContainer">
                     <form class="registerForm">
-                        <h2 class="fontStyle">Inscrivez-vous</h2>
-                        <input type="text" id="UsernameInput" placeholder="Nom d'utilisateur" required>
-                        <input type="email" id="EmailInput" placeholder="email" required>
-                        <input type="password" id="PasswordInput" placeholder="Mot de passe" required>
-                        <div class="showPasswordContainer">
-                            <input class="checkbox" id="PasswordCheckbox" type="checkbox" onclick="showPassword()">
-                            <label class="fontStyle" for="passwordCheckbox">Montrer le mot de passe</label>
-                        </div>
-                        <button class="fontStyle registerBtn" type="button" id="registerBtn">S'inscrire</button>
-                        <p class="registerMsgContainer"></p>
+                        <h2>Inscrivez-vous</h2>
+                        <div class="row register">
+                            <div id="username" class="col-sm-3">
+                                <input class="border" type="text" id="UsernameInput" placeholder="Nom d'utilisateur" required>
+                            </div>
+                            <div id="mail" class="col-sm-3"> 
+                                <input class="border" type="email" id="EmailInput" placeholder="email" required>
+                            </div>
+                            <div id="password" class="col-sm-3">
+                                <input class="border" type="password" id="PasswordInput" placeholder="Mot de passe" required>
+                                <div class="showPasswordContainer">
+                                    <input class="checkbox" id="PasswordCheckbox" type="checkbox" onclick="showPassword()">
+                                    <label class="fontStyle" for="passwordCheckbox">Montrer</label>
+                                </div>
+                            </div>
+                        </div>    
+                        <button class="borderButton" class="fontStyle registerBtn" type="button" id="registerBtn">S'inscrire</button>
                     </form>
                 </div>
 
                 <div class="logFormContainer">
                     <form>
-                        <h2 class="fontStyle">Connectez-vous</h2>
-                        <input type="email" id="email" required placeholder="Email">
-                        <input id="password" type="password" required placeholder="Mot de passe">
+                        <h2 id="titleConnection">Connectez-vous</h2>
+                        <div id="email">
+                            <input class="border inputConnection" type="email" required placeholder="Email">
+                        </div>
+                        <div id="pass">
+                            <input class="border inputConnection" type="password" required placeholder="Mot de passe">
+                        </div>
                         <div class="showPasswordContainer">
                             <input class="checkbox" type="checkbox" id="checkbox" onclick="showPasswords()">
-                            <label class="fontStyle" for="checkbox">Montrer le mot de passe</label>
+                            <label class="fontStyle" for="checkbox">Montrer</label>
                         </div>
-                        <button class="fontStyle" id="connectionBtn">Connexion</button>
-                        <p class="logMsgContainer"></p>
+                        <button class="borderButton" class="fontStyle" id="connectionBtn">Connexion</button>
                     </form>
                 </div>
             </div>
+            <img id="logo1" src="../img/logo_index.png" alt="Explorer">
         </div>
     </div>
 

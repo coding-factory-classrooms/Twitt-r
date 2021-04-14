@@ -1,33 +1,89 @@
-/* html, body {
-    margin: 0;
-    height: 100%;
-    overflow: hidden;
-} */
+
 
 #background{
     background-color: black;
+}
+h2{
+    color: rgb(29, 161, 242);
 }
 .fontStyle{
     color: white;
 }
 #registerBtn, #connectionBtn{
-    color: black;
+    color:white;
+    background-color:  rgb(29, 161, 242);
 }
-.containerRight {
-
+.border{
+    border-radius: 6px;
+}
+.borderButton{
+    border-radius: 20px;
+    border: none;
+    width: 120px;
+    height: 40px;
+}
+::placeholder{
+    color: gray;
+}
+input{
+    background-color: black;
+    color: white;
+}
+.register{
+    margin-bottom: -4%;
 }
 
 .logFormContainer {
+    margin-top: 18%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#email{
     margin-top: 20%;
-    margin-left: 8%;
+}
+
+#pass{
+    margin-top: 10%;
 }
 
 .registerFormContainer {
-    margin-top: 20%;
+    margin-top: 2%;
     margin-left: 8%;
     
 }
 
 .background {
-
+    height: 821px;
+    width: 720px;
+    background: url(../img/low-poly-grid-haikei.png) no-repeat fixed;
+    background-size: 720px 821px;
+}
+#logo{
+    height: 720px 821px; 
+    margin-left: 110px;
+    margin-top: 172px;
+}
+#mail, #password{
+    margin-left: 2%;
+}
+.inputConnection{
+    width: 300px;
+    height: 50px;
+}
+.showPasswordContainer{
+    margin-bottom: 20%;
+}
+#titleConnection{
+    margin-left: 20px;
+}
+#connectionBtn{
+    width: 200px;
+    height: 40px;
+    margin-left: 50px;
+}
+#logo1{
+    height: 60px;
+    margin-left: 90%;
+    margin-top: 14%;
 }
