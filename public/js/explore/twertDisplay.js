@@ -5,13 +5,9 @@ displayAllTwerts()
 
 async function displayAllTwerts() {
     const twertList = await getTwertList()
-    const twerts = await getAllTwerts()
+    const twerts = await getTwertAuthor(accountId)
 
     ReactDOM.render(<TwertList twertList = {twertList} />, twertListContainer)
-}
-async function displayTwert(twert, user) {
-    const twertList = document.querySelector('.twertList')
-    ReactDOM.render(<Twert twert = {twert} user = {user} accountId = {accountId} />, twertList)
 }
 async function getTwertList() {
     let twertList = []

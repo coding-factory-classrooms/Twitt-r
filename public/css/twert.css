@@ -1,11 +1,30 @@
 .twertCard {
-    width: 60%;
-    margin: 9px 0; 
+    width: 100%;
+    margin: 7px 0; 
     box-shadow: 0px 0px 12px 1px rgb(9, 9, 10, .3);
     border: 1px solid rgba(29, 161, 242, .1);
     border-radius: 10px;
     padding: 20px 20px 0 20px;
     cursor: pointer;
+}
+.retwertMsgContainer {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.retwertMsgContainer img {
+    width: 13px;
+}
+.retwertMsg {
+    font-size: 12px;
+    opacity: .3;
+    margin: 0;
+    margin-left: 5px;
+}
+.retwertMsg a {
+    font-weight: 600;
+    text-decoration: none;
+    color: white
 }
 .twertUserAndBody {
     display: flex;
@@ -19,9 +38,11 @@
     align-items: center;
     justify-content: space-between;
 }
-.twertInfo .username{
+.twertInfo .username {
     margin-right: 20px;
-    font-weight: 500;
+    font-weight: 600;
+    font-size: 15px;
+    margin-bottom: 0;
 }
 .twertInfo a {
     color: white;
@@ -79,12 +100,6 @@
     outline: none;
     transition: background-color .2s;
 }
-/* .favIcon{
-    background-image: url(../img/like.png);
-}
-.rtIcon{
-    background-image: url(../img/retweet.png);
-} */
 .comentIcon{
     background-image: url(../img/coment.png);
 }
@@ -136,6 +151,10 @@
     border: none;
     border-radius: 100px;
     color: white;
+    font-size: 13px;
+}
+.commentTwertContainer input::placeholder {
+    font-size: 13px;
 }
 .commentTwertContainer .commentBtnContainer {
     display: flex;
@@ -152,6 +171,9 @@
     font-weight: 500;
     font-size: 14px;
     overflow: hidden;
+}
+.commentTwertContainer .commentBtnContainer p {
+    margin: 0;
 }
 .commentTwertContainer lottie-player {
     height: 80px;

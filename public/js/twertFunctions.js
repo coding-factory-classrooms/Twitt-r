@@ -166,8 +166,8 @@ function getDiffTime(createdAt) {
     
     const diffMs = Math.abs(today - date)
     const diffMinutes = Math.round(diffMs / (1000 * 60))
-    const diffHours = Math.round(diffMs / (1000 * 60 * 60))
-    const diffDays = Math.round(diffMs / (1000 * 60 * 60 * 24))
+    const diffHours = Math.floor(diffMs / (1000 * 60 * 60))
+    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24))
 
     if (diffDays > 0) return `Il y a ${diffDays} jour${diffDays > 1 ? 's' : ''}`
     else if (diffHours > 0) return `Il y a ${diffHours} heure${diffHours > 1 ? 's' : ''}`

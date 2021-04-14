@@ -30,6 +30,12 @@ class Twert extends React.Component {
 
     render() {
         return  <div className="twertCard" id={this.props.twert._id}>
+                    {this.props.twert.isRetwert ? 
+                        <div className="retwertMsgContainer">
+                            <img src="../img/retweet2.png" alt="retwerter" />
+                            <p className="retwertMsg"><a href={"profil.html?id=" + this.props.twert.retwertAuthorId}>{this.props.twert.retwertAuthor}</a> a retwerté</p>
+                        </div>
+                    : null}
                     <div className="twertUserAndBody" onClick={() => {goToTwertPage(this.props.twert._id)}}>
                         <div className="ppTwertContainer">
                             <div className="ppTwert">

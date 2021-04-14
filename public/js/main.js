@@ -19,62 +19,32 @@ textarea.addEventListener('input', () => {
 
 async function displayTimeLine() {
     // Get twerts ans retwerts of all followed profil of the user
-    const followedProfilsActivity = await fetch('/db/getFollowedProfilsActivity', { method: 'POST', body: accountId }).then(response => response.json())
+    const twertList = await getTwertList()
+    const twerts = await getAllTwerts()
 
-    followedProfilsActivity.forEach(async twert => {
-        const user = await getTwertAuthor(twert.authorId)
-        displayTwert(twert, user)
-    })
+    ReactDOM.render(<TwertList twertList = {twertList} />, twertListContainer)
 }
-async function displayAllTwerts() {
-    const twertList = await getAllTwerts()
+// async function displayAllTwerts() {
+//     const twertList = await getAllTwerts()
 
-    twertList.forEach(async twert => {
+//     twertList.forEach(async twert => {
+//         const user = await getTwertAuthor(twert.authorId)
+//         displayTwert(twert, user)
+//     })
+// }
+async function getTwertList() {
+    let twertList = []
+    const twerts = await fetch('/db/getFollowedProfilsActivity', { method: 'POST', body: accountId }).then(response => response.json())
+
+    twerts.forEach(async twert => {
         const user = await getTwertAuthor(twert.authorId)
-        displayTwert(twert, user)
+        const obj = {
+            twert: twert,
+            user: user
+        }
+        twertList.push(obj)
     })
-}
-function displayTwert(twert, user) {
-    document.querySelector('.twertListContainer').insertAdjacentHTML('afterbegin', `
-        <div class="twertCard" id="${twert._id}">
-            ${twert.isRetwert ? `
-                <div class="retwertMsgContainer">
-                    <img src="../img/retweet2.png" alt="retwerter">
-                    <p class="retwertMsg"><a href="profil.html?id=${twert.retwertAuthorId}">${twert.retwertAuthor}</a> a retwerté</p>
-                </div>
-            ` : ''}
-            <div class="twertUserAndBody" onclick="goToTwertPage('${twert._id}')">
-                <div class="ppTwertContainer">
-                    <div class="ppTwert">
-                        <img src="${user.profilImg}" alt="profilImage">
-                    </div>
-                </div>
-                <div class="twertInfoContainer">
-                    <div class="twertInfo">
-                        <p class="username">${user.username}</p>
-                        <p class="diffTime">${getDiffTime(twert.createdAt)} </p>
-                    </div>
-                    <div class="twertContent">
-                        <p class="body">${twert.body}</p>
-                    </div>
-                </div>
-            </div>
-            <div class="interactContainer">
-                <div class="comentContainer">
-                    <button type="button" class="comentIcon btn" onclick="commentThisTwert('${twert._id}','${accountId}', '${user.username}', '${user._id}')"></button>
-                    <p>${twert.comments.length}</p>
-                </div>
-                <div class="rtContainer">
-                    <button type="button" class="rtIcon btn" onclick="rtThisTwert('${twert._id}','${accountId}')"></button>
-                    <p>${twert.retweet.length}</p>
-                </div>
-                <div class="favContainer">
-                    <button type="button" class="favIcon btn" onclick="likeThisTwert('${twert._id}','${accountId}')"></button>
-                    <p>${twert.fav.length}</p>
-                </div>
-            </div>
-        </div>
-    `)
+    return twertList
 }
 async function setProfilImgAndLink() {
     // Set the profil img
