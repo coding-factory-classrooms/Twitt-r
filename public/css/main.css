@@ -54,7 +54,7 @@ body {
 .createNewTwertInputContainer {
     width: 100%;
 }
-.createNewTwertInputContainer .twertActionContainer {
+.createNewTwertInputContainer {
     float: right;
 }
 .profilImgContainer {
@@ -63,9 +63,28 @@ body {
     border-radius: 50%;
     overflow: hidden;
 }
+.previewImg {
+    max-width: 100%;
+    margin: 20px 0;
+}
 .twertActionContainer {
+    width: 100%;
     display: flex;
     align-items: center;
+    justify-content: space-between;
+}
+.twertActionContainer label {
+    width: 100%;
+    margin-bottom: 0;
+    display: flex;
+    justify-content: center;
+}
+.twertActionContainer label img {
+    height: 20px;
+    cursor: pointer;
+}
+.twertActionContainer input {
+    display: none;
 }
 .twertActionContainer span {
     margin-right: 10px;

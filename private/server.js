@@ -1,6 +1,8 @@
 const express = require('express')
 const db = require('./database/exports')
 const figlet = require('figlet')
+const fs = require('fs')
+const bcrypt = require('bcryptjs')
 
 // Server initiation
 const app = express()
@@ -176,6 +178,7 @@ app.post('/db/getAuthorName', (req, res)=>{
 // Send twert to bdd
 app.post('/db/sendMsg', async (req, res)=>{
     let msg = JSON.parse(req.body)
+
     const twert = {
         authorId: msg.authorId,
         authorName: msg.authorName,
@@ -185,7 +188,7 @@ app.post('/db/sendMsg', async (req, res)=>{
         comments: []
     }
     newTwert = new Twert(twert)
-    await newTwert.save()
+    //await newTwert.save()
     newTwertId = newTwert._id
 
     // Save twert in user profil

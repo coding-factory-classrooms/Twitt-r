@@ -2,7 +2,7 @@ const registerBtn = document.querySelector('.registerBtn')
 const userEmailP = document.querySelector('.userEmail')
 
 // Get local storage information
-let twittrData = JSON.parse(localStorage.getItem('twittrData'))
+let twittrData = JSON.parse(localStorage.getItem('twitt-r-data'))
 
 // If user is connected, Redirection to connection page
 if(twittrData.connected == true){
@@ -29,11 +29,11 @@ registerBtn.addEventListener('click', async (event) => {
 })
 
 async function setLocalStorageData() {
-    let data = JSON.parse(localStorage.getItem('twittrData'))
+    let data = JSON.parse(localStorage.getItem('twitt-r-data'))
     data.userId = await getUserId(userEmail)
     data.connected = true
-    localStorage.setItem('twittrData', JSON.stringify(data))
-    console.log(JSON.parse(localStorage.getItem('twittrData')));
+    localStorage.setItem('twitt-r-data', JSON.stringify(data))
+    console.log(JSON.parse(localStorage.getItem('twitt-r-data')));
 }
 
 async function createAccount(userData) {

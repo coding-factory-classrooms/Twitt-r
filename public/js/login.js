@@ -2,12 +2,12 @@ const connectionBtn = document.querySelector('#connectionBtn')
 const mailInput = document.querySelector('#email')
 
 // Get local storage information
-if (localStorage.getItem('twittrData') == null) {
-    localStorage.setItem('twittrData', '{}')
+if (localStorage.getItem('twitt-r-data') == null) {
+    localStorage.setItem('twitt-r-data', '{}')
 }
   
 //If user is connected, Redirection to main page
-if (JSON.parse(localStorage.getItem('twittrData')).connected) {
+if (JSON.parse(localStorage.getItem('twitt-r-data')).connected) {
     window.location.href = 'html/main.html'
 }
 
@@ -21,10 +21,10 @@ connectionBtn.addEventListener('click', async (event) => {
 
     if (isInputsCorrect) {
         // set the user id in local storage
-        let data = JSON.parse(localStorage.getItem('twittrData'))
+        let data = JSON.parse(localStorage.getItem('twitt-r-data'))
         data.userId = await getUserId(loginInput[0].value)
         data.connected = true
-        localStorage.setItem('twittrData', JSON.stringify(data))
+        localStorage.setItem('twitt-r-data', JSON.stringify(data))
 
         window.location.href = 'html/main.html'
     }

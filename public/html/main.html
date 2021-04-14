@@ -49,9 +49,20 @@
             </div>
             <div class="createNewTwertInputContainer">
                 <textarea id="msgArea" placeholder="Quoi de neuf ?" maxlength="255"></textarea>
+                <img src="" class="previewImg">
                 <div class="twertActionContainer">
-                    <span>0/255</span>
-                    <button type="button" class="validMsgBtn" onclick="validTextArea()">Twèrter</button>
+                    <div>
+                        <label for="fileInput">
+                            <div>
+                                <img src="../img/img.png" alt="Ajouter une image">
+                            </div>
+                        </label>
+                        <input type="file" class="fileInput" id="fileInput" onchange="setImgPreview(event)">
+                    </div>
+                    <div>
+                        <span>0/255</span>
+                        <button type="button" class="validMsgBtn" onclick="validTextArea()">Twèrter</button>
+                    </div>
                 </div>
             </div>
         </div>

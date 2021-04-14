@@ -24,14 +24,6 @@ async function displayTimeLine() {
 
     ReactDOM.render(<TwertList twertList = {twertList} />, twertListContainer)
 }
-// async function displayAllTwerts() {
-//     const twertList = await getAllTwerts()
-
-//     twertList.forEach(async twert => {
-//         const user = await getTwertAuthor(twert.authorId)
-//         displayTwert(twert, user)
-//     })
-// }
 async function getTwertList() {
     let twertList = []
     const twerts = await fetch('/db/getFollowedProfilsActivity', { method: 'POST', body: accountId }).then(response => response.json())
@@ -54,10 +46,41 @@ async function setProfilImgAndLink() {
     // Set the profil link
     document.querySelector('.profilImgContainer a').setAttribute('href', `profil.html?id=${accountId}`)
 }
+function setImgPreview(event) {
+    const img = event.target.files[0]
+    const reader = new FileReader()
+    
+    reader.addEventListener('load', () => {
+        document.querySelector('.createNewTwertInputContainer img').src = reader.result
+    })
+    reader.readAsDataURL(img)
+}
 async function validTextArea(){
     let authorId =  JSON.parse(localStorage.getItem('twitt-r-data')).userId
     let authorName = await getAuthorName(authorId);
     let msg = document.querySelector('#msgArea').value
+    let img = document.querySelector('.fileInput').files[0]
+
+    // const reader = new FileReader()
+    // reader.addEventListener('load', async () => { 
+    //     let messageData = {
+    //         authorId: authorId,
+    //         authorName: authorName,
+    //         body: msg,
+    //         bodyImg: {
+    //             data: reader.result,
+    //             contentType: img.type
+    //         }
+    //     }
+    
+    //     let sendData = {
+    //         method: 'POST',
+    //         body: JSON.stringify(messageData)
+    //     }
+    //     await fetch ('/db/sendMsg', sendData).then(() => document.getElementById('msgArea').value = '')
+    
+    // })
+    //reader.readAsDataURL(img)
 
     if (msg.length > 0) {
         let messageData = {
@@ -70,7 +93,10 @@ async function validTextArea(){
             method: 'POST',
             body: JSON.stringify(messageData)
         }
-        await fetch ('/db/sendMsg', sendData).then(() => document.getElementById('msgArea').value = '')
+        await fetch ('/db/sendMsg', sendData).then(() => {
+            document.getElementById('msgArea').value = ''
+            document.querySelector('.createNewTwertInputContainer img').src = ''
+        })
     }
 }
 async function getAuthorName(authorId){
