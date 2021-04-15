@@ -28,7 +28,7 @@ async function rtThisTwert(idTwert, profileId) {
     const retwertTextElement = twertElement.querySelector('.rtContainer p')
 
     retwertElement.style.backgroundImage = "url('../img/retweet-green.png')"
-    retwertTextElement.innerHTML = twert.retweet.length + 1
+    retwertTextElement.innerHTML = twert.retweet.length
 }
 function goToTwertPage(id) {
     window.location.href = `twert.html?id=${id}`
@@ -78,7 +78,7 @@ async function deleteRtThisTwert(idTwert, profileId) {
     const retwertTextElement = twertElement.querySelector('.rtContainer p')
 
     retwertElement.style.backgroundImage = "url('../img/retweet.png')"
-    retwertTextElement.innerHTML = twert.retweet.length - 1
+    retwertTextElement.innerHTML = twert.retweet.length 
 }
 // Toggle Like
 async function toggleLike(idTwert, profileId) {
@@ -105,7 +105,7 @@ async function likeThisTwert(idTwert, profileId) {
     let likeTextElement = twertElement.querySelector('.favContainer p')
     
     likeElement.style.backgroundImage = "url('../img/like-red.png')"
-    likeTextElement.innerHTML = twert.fav.length + 1
+    likeTextElement.innerHTML = twert.fav.length 
 }
 // Delete a retwert of a twert
 async function deleteLikeThisTwert(idTwert, profileId) {
@@ -123,7 +123,7 @@ async function deleteLikeThisTwert(idTwert, profileId) {
     let likeTextElement = twertElement.querySelector('.favContainer p')
     
     likeElement.style.backgroundImage = "url('../img/like.png')"
-    likeTextElement.innerHTML = twert.fav.length - 1
+    likeTextElement.innerHTML = twert.fav.length 
 }
 // Check if the count of like or of retwert or of comment have changed
 async function checkLikeRtComent(profileId){

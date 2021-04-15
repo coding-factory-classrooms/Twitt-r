@@ -1,5 +1,5 @@
 const registerBtn = document.querySelector('.registerBtn')
-const userEmailP = document.querySelector('.userEmail')
+const userEmail = document.querySelector('.userEmail')
 
 // Get local storage information
 let twittrData = JSON.parse(localStorage.getItem('twitt-r-data'))
@@ -25,6 +25,7 @@ registerBtn.addEventListener('click', async (event) => {
         }
         
         createAccount(userData)
+        alert("Ton compte vient d'être créé")
     }
 })
 

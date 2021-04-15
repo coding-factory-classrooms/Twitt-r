@@ -13,6 +13,7 @@ if (JSON.parse(localStorage.getItem('twitt-r-data')).connected) {
 
 connectionBtn.addEventListener('click', async (event) => {
     const loginInput = document.querySelectorAll('.formContainerlog input')
+    console.log(loginInput);
     // Don't reset the form
     event.preventDefault()
 
