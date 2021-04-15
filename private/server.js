@@ -1,16 +1,20 @@
+const hostname = 'localhost';
+const port = 3000;
 const express = require('express')
+const bodyParser = require('body-parser')
 const db = require('./database/exports')
 const figlet = require('figlet')
-const fs = require('fs')
 const bcrypt = require('bcryptjs')
 
-// Server initiation
 const app = express()
-app.listen(3002, () => console.log('Server started on port 3002'))
-
+app.listen(port, () => {
+    console.log(`Server running at http://${hostname}:${port}/`);
+});
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.json())
 app.use(express.text())
-app.use(express.static('public'))
+app.use(express.static('../public'))
 
 // Database init
 db.connect
