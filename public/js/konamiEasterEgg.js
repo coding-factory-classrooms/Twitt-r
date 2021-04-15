@@ -42,10 +42,6 @@ let allowedKeys = {
   function activateCheats() {
     document.body.style.backgroundImage = "url('../images/agile.png')";
   
-    let audio = new Audio('../audio/audio.mp3.mp3');
-    audio.play();
-    audio.volume = 0.1;
-  
-    alert("Agile no jutsu no André");
+    alert("Hey, vas dans à propos et tape bat sur ton clavier");
   }
   
