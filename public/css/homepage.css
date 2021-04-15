@@ -59,9 +59,8 @@ input{
     background-size: 50% 100%;
 }
 #logo{
-    height: 720px 821px; 
-    margin-left: 110px;
-    margin-top: 172px;
+    margin-left: 17%;
+    margin-top: 25%;
 }
 #mail, #password{
     margin-left: 2%;
@@ -82,7 +81,7 @@ input{
     margin-left: 50px;
 }
 #logo1{
-    height: 60px;
+    height: 5%;
     margin-left: 90%;
     margin-top: 14%;
 }
