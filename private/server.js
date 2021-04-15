@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.json())
 app.use(express.text())
-app.use(express.static('public'))
+app.use(express.static('../public'))
 
 // Database init
 db.connect
