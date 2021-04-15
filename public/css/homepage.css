@@ -1,6 +1,5 @@
 
-
-#background{
+body{
     background-color: black;
 }
 h2{
@@ -54,10 +53,10 @@ input{
 }
 
 .background {
-    height: 821px;
-    width: 720px;
+    height: 100%;
+    width: 100%;
     background: url(../img/low-poly-grid-haikei.png) no-repeat fixed;
-    background-size: 720px 821px;
+    background-size: 50% 100%;
 }
 #logo{
     height: 720px 821px; 
